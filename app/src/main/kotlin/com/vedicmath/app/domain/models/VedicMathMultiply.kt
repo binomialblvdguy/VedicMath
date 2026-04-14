@@ -1,0 +1,381 @@
+package com.vedicmath.app.models
+
+internal fun solveByOneMoreSameTens(a: Int, b: Int): CalculationResult {
+    return if (isByOneMoreCandidate(a, b)) {
+        val t = a / 10
+        val u = a % 10
+        val v = b % 10
+        val sumUnits = u + v
+        val excess = sumUnits - 10
+
+        val left = t * (t + 1)
+        val middle = t * excess
+        val right = u * v
+        val result = a * b
+
+        CalculationResult(
+            methodName = "By 1 More",
+            result = result.toString(),
+            steps = listOf(
+                "Method: By 1 More",
+                "$a and $b have the same tens digit = $t",
+                "Units sum = $u + $v = $sumUnits",
+                "Left block = $t × ${t + 1} = $left",
+                "Middle block = $t × ($sumUnits - 10) = $middle",
+                "Right block = $u × $v = $right",
+                "One-line form = $left | ${fmtBlock(middle)} | ${fmtBlock(right)}",
+                "Answer = $result"
+            )
+        )
+    } else {
+        overrideResult(
+            name = "By 1 More",
+            base = VedicMath.solveMultiplication(a, b),
+            note = "This works when the tens digits match and the units total 10 or more."
+        )
+    }
+}
+
+internal fun solveSum9SameTens(a: Int, b: Int): CalculationResult {
+    return if (isSum9SameTensCandidate(a, b)) {
+        val t = a / 10
+        val u = a % 10
+        val v = b % 10
+
+        val baseHead = t * (t + 1) * 10
+        val left = baseHead - t
+        val right = u * v
+        val result = a * b
+
+        CalculationResult(
+            methodName = "Sum 9 Same Tens",
+            result = result.toString(),
+            steps = listOf(
+                "Method: Sum 9 Same Tens",
+                "$a and $b have the same tens digit = $t",
+                "Units sum = $u + $v = 9",
+                "By-1-more head = $t × ${t + 1} × 10 = $baseHead",
+                "Subtract tens digit = $baseHead - $t = $left",
+                "Right block = $u × $v = $right",
+                "One-line form = $left | ${fmtBlock(right)}",
+                "Answer = $result"
+            )
+        )
+    } else {
+        overrideResult(
+            name = "Sum 9 Same Tens",
+            base = VedicMath.solveMultiplication(a, b),
+            note = "This works when the tens digits match and the units total exactly 9."
+        )
+    }
+}
+
+internal fun solveSameUnits(a: Int, b: Int): CalculationResult {
+    return if (isSameUnitsCandidate(a, b)) {
+        val t1 = a / 10
+        val t2 = b / 10
+        val u = a % 10
+
+        val left = t1 * t2
+        val middle = u * (t1 + t2)
+        val right = u * u
+        val result = a * b
+
+        val extraNote = if (t1 + t2 == 11) {
+            "Since the tens digits total 11, the middle block is a multiple of 11."
+        } else {
+            "Middle block = units × (sum of tens digits)."
+        }
+
+        CalculationResult(
+            methodName = "Same Units",
+            result = result.toString(),
+            steps = listOf(
+                "Method: Same Units",
+                "$a and $b both end in $u",
+                "Left block = $t1 × $t2 = $left",
+                "Middle block = $u × (${t1 + t2}) = $middle",
+                "Right block = $u × $u = $right",
+                extraNote,
+                "One-line form = $left | ${fmtBlock(middle)} | ${fmtBlock(right)}",
+                "Answer = $result"
+            )
+        )
+    } else {
+        overrideResult(
+            name = "Same Units",
+            base = VedicMath.solveMultiplication(a, b),
+            note = "This works when both numbers end in the same units digit."
+        )
+    }
+}
+
+internal fun solveReciprocalDigits(a: Int, b: Int): CalculationResult {
+    return if (isReciprocalCandidate(a, b)) {
+        val x = a / 10
+        val y = a % 10
+
+        val left = x * y
+        val middle = (x * x) + (y * y)
+        val right = x * y
+        val result = a * b
+
+        CalculationResult(
+            methodName = "Reciprocals",
+            result = result.toString(),
+            steps = listOf(
+                "Method: Reciprocals",
+                "$a and $b are reverse-digit pairs",
+                "Left block = $x × $y = $left",
+                "Middle block = $x² + $y² = ${x * x} + ${y * y} = $middle",
+                "Right block = $x × $y = $right",
+                "One-line form = $left | ${fmtBlock(middle)} | ${fmtBlock(right)}",
+                "Answer = $result"
+            )
+        )
+    } else {
+        overrideResult(
+            name = "Reciprocals",
+            base = VedicMath.solveMultiplication(a, b),
+            note = "This works for reverse-digit pairs such as 24 × 42."
+        )
+    }
+}
+
+internal fun solveNearBase100Nikhilam(a: Int, b: Int): CalculationResult {
+    val base = 100
+    val da = base - a
+    val db = base - b
+    val leftRaw = a - db
+    val rightRaw = da * db
+    val carry = rightRaw / base
+    val right = rightRaw % base
+    val left = leftRaw + carry
+    val result = a * b
+    val rightText = right.toString().padStart(2, '0')
+
+    return CalculationResult(
+        methodName = "Near-100 Nikhilam",
+        result = result.toString(),
+        steps = listOf(
+            "Method: Near-100 Nikhilam",
+            "Base = 100",
+            "$a is $da below 100",
+            "$b is $db below 100",
+            "Left part = $a - $db = $leftRaw",
+            "Right part = $da × $db = $rightRaw",
+            if (carry > 0) "Carry $carry from the right part" else "No carry needed",
+            "Answer = $left | $rightText = $result"
+        )
+    )
+}
+
+internal fun solveBase10Grouping(a: Int, b: Int): CalculationResult {
+    val p = a - 10
+    val q = b - 10
+    val leftGroup = 10 + p + q
+    val rightGroup = p * q
+    val result = a * b
+
+    return CalculationResult(
+        methodName = "Base-10 Grouping",
+        result = result.toString(),
+        steps = listOf(
+            "Method: Base-10 Grouping",
+            "Choose base = 10",
+            "$a = 10 + $p",
+            "$b = 10 + $q",
+            "Use: (10 + p)(10 + q) = 10(10 + p + q) + pq",
+            "Left group = 10 + $p + $q = $leftGroup",
+            "Right group = $p × $q = $rightGroup",
+            "Grouped form = $leftGroup | $rightGroup",
+            "Answer = $result"
+        )
+    )
+}
+
+internal fun solveVerticalCrosswise(a: Int, b: Int): CalculationResult {
+    val aTens = a / 10
+    val aUnits = a % 10
+    val bTens = b / 10
+    val bUnits = b % 10
+
+    val rightRaw = aUnits * bUnits
+    val carryFromRight = rightRaw / 10
+    val rightDigit = rightRaw % 10
+
+    val crossRaw = (aTens * bUnits) + (aUnits * bTens)
+    val crossTotal = crossRaw + carryFromRight
+    val carryFromCross = crossTotal / 10
+    val middleDigit = crossTotal % 10
+
+    val leftTotal = (aTens * bTens) + carryFromCross
+    val result = a * b
+
+    return CalculationResult(
+        methodName = "Vertical and Crosswise",
+        result = result.toString(),
+        steps = listOf(
+            "Method: Vertical and Crosswise",
+            "$a = $aTens$aUnits",
+            "$b = $bTens$bUnits",
+            "Right: $aUnits × $bUnits = $rightRaw, write $rightDigit carry $carryFromRight",
+            "Cross: ($aTens × $bUnits) + ($aUnits × $bTens) = $crossRaw, plus carry = $crossTotal, write $middleDigit carry $carryFromCross",
+            "Left: ($aTens × $bTens) + carry = ${aTens * bTens} + $carryFromCross = $leftTotal",
+            "Answer = $leftTotal$middleDigit$rightDigit = $result"
+        )
+    )
+}
+
+internal fun solveSingleDigitGrouping(a: Int, b: Int): CalculationResult {
+    return when {
+        a in 0..9 && b >= 10 -> solveDigitGroupingCore(b, a, "1-Digit Grouping")
+        b in 0..9 && a >= 10 -> solveDigitGroupingCore(a, b, "1-Digit Grouping")
+        else -> overrideResult(
+            name = "1-Digit Grouping",
+            base = solvePositionalSplit(a, b),
+            note = "No single-digit multiplier found, so positional split was used."
+        )
+    }
+}
+
+internal fun solveTwoDigitGrouping(a: Int, b: Int): CalculationResult {
+    return when {
+        a in 10..99 && b >= 100 -> solveDigitGroupingCore(b, a, "2-Digit Grouping")
+        b in 10..99 && a >= 100 -> solveDigitGroupingCore(a, b, "2-Digit Grouping")
+        else -> overrideResult(
+            name = "2-Digit Grouping",
+            base = VedicMath.solveMultiplication(a, b),
+            note = "A clean two-digit grouping pattern was not available for this input."
+        )
+    }
+}
+
+internal fun solvePreferredNearBase(a: Int, b: Int): CalculationResult {
+    return when {
+        a < 100 && b < 100 && isNearBase100(a, b) -> solveNearBase100Nikhilam(a, b)
+        a < 100 && b < 100 && isBase10GroupingCandidate(a, b) -> overrideResult(
+            name = "Near-Base",
+            base = solveBase10Grouping(a, b),
+            note = "These numbers are closer to base 10 than base 100."
+        )
+        else -> overrideResult(
+            name = "Near-Base",
+            base = VedicMath.solveMultiplication(a, b),
+            note = "A strong near-base pattern was not found."
+        )
+    }
+}
+
+internal fun solveSeriesPattern(a: Int, b: Int): CalculationResult {
+    return when {
+        isArithmeticDigitSeries(a) && b in 1..99 -> overrideResult(
+            name = "Series Pattern",
+            base = solveDigitGroupingCore(a, b, "Series Pattern"),
+            note = "Detected a digit series in $a."
+        )
+        isArithmeticDigitSeries(b) && a in 1..99 -> overrideResult(
+            name = "Series Pattern",
+            base = solveDigitGroupingCore(b, a, "Series Pattern"),
+            note = "Detected a digit series in $b."
+        )
+        else -> overrideResult(
+            name = "Series Pattern",
+            base = solvePositionalSplit(a, b),
+            note = "No strong arithmetic digit series was detected."
+        )
+    }
+}
+
+internal fun solveDigitwiseGrouping(a: Int, b: Int, methodName: String): CalculationResult {
+    val longFactor: Int
+    val shortFactor: Int
+
+    if (digitCount(a) >= digitCount(b)) {
+        longFactor = a
+        shortFactor = b
+    } else {
+        longFactor = b
+        shortFactor = a
+    }
+
+    return solveDigitGroupingCore(longFactor, shortFactor, methodName)
+}
+
+internal fun solveDigitGroupingCore(
+    longFactor: Int,
+    shortFactor: Int,
+    methodName: String
+): CalculationResult {
+    val digits = longFactor.toString().map { it.digitToInt() }
+    val rawGroups = digits.map { it * shortFactor }
+    val result = longFactor * shortFactor
+
+    val steps = mutableListOf<String>()
+    steps += "Method: $methodName"
+    steps += "Long factor = $longFactor"
+    steps += "Short factor = $shortFactor"
+
+    digits.forEach { digit ->
+        steps += "$digit × $shortFactor = ${digit * shortFactor}"
+    }
+
+    steps += "Grouped form = ${rawGroups.joinToString(separator = " | ")}"
+
+    val writtenDigits = mutableListOf<Int>()
+    var carry = 0
+
+    for (i in rawGroups.indices.reversed()) {
+        val total = rawGroups[i] + carry
+        val writeDigit = total % 10
+        carry = total / 10
+        writtenDigits.add(0, writeDigit)
+        steps += "$total -> write $writeDigit, carry $carry"
+    }
+
+    val answerText = buildString {
+        if (carry > 0) append(carry)
+        writtenDigits.forEach { append(it) }
+    }
+
+    steps += "Answer = $answerText = $result"
+
+    return CalculationResult(
+        methodName = methodName,
+        result = result.toString(),
+        steps = steps
+    )
+}
+
+internal fun solvePositionalSplit(a: Int, b: Int): CalculationResult {
+    val splitFactor: Int
+    val otherFactor: Int
+
+    if (countPlaceParts(a) <= countPlaceParts(b)) {
+        splitFactor = a
+        otherFactor = b
+    } else {
+        splitFactor = b
+        otherFactor = a
+    }
+
+    val parts = decomposePlaceValues(splitFactor)
+    val partials = parts.map { otherFactor * it }
+    val result = a * b
+
+    val steps = mutableListOf<String>()
+    steps += "Method: Positional Split"
+    steps += "Split $splitFactor into place values: ${parts.joinToString(separator = " + ")}"
+
+    parts.forEachIndexed { index, part ->
+        steps += "$otherFactor × $part = ${partials[index]}"
+    }
+
+    steps += "Add partials: ${partials.joinToString(separator = " + ")} = $result"
+
+    return CalculationResult(
+        methodName = "Positional Split",
+        result = result.toString(),
+        steps = steps
+    )
+}

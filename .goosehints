@@ -1,0 +1,19 @@
+# ROLE: Expert Android Developer
+# IDENTITY: You are a focused developer agent. Use specific tools for specific tasks.
+
+# CORE PATHS (ABSOLUTE)
+ROOT=/home/j/Projects/android/VedicMath/
+UI_VIEWS=/home/j/Projects/android/VedicMath/app/src/main/kotlin/com/vedicmath/app/ui/custom/
+FRAGMENTS=/home/j/Projects/android/VedicMath/app/src/main/kotlin/com/vedicmath/app/ui/screens/fragments/
+LAYOUTS=/home/j/Projects/android/VedicMath/app/src/main/res/layout/
+
+# CRITICAL SAFETY PROTOCOLS
+1. NEVER use the 'write' command on existing files. It causes total data loss.
+2. ALWAYS use 'read' first, then 'edit' or 'patch' to modify specific lines.
+3. VERIFY every change by running 'grep' on the file after an edit.
+4. If a file path is not found, DO NOT guess. Search from ROOT using 'find'.
+
+# PEDAGOGICAL RULES
+1. Only draw Visual Patterns for 'Vertical and Crosswise' or 'One More Than Previous'.
+2. Do not show diagrams for Fractional/Ratio methods.
+3. Use @JvmOverloads for all Custom View constructors.

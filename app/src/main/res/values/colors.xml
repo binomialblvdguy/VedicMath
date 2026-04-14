@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#FFEB3B</color>
+    <color name="background">#000000</color>
+    <color name="surface">#121212</color>
+
+    <color name="on_surface">#FFEB3B</color>
+    <color name="on_primary">#000000</color>
+    <color name="error">#F44336</color>
+    <color name="surface_variant">#1A1A1A</color>
+
+    <color name="toggle_selected_bg">#FFEB3B</color>
+    <color name="toggle_unselected_bg">#000000</color>
+    <color name="toggle_selected_text">#000000</color>
+    <color name="toggle_unselected_text">#FFEB3B</color>
+
+    <color name="text_primary">#FFEB3B</color>
+    <color name="text_secondary">#FFEE58</color>
+</resources>

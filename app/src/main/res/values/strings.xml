@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VedicMath</string>
+
+    <string name="select_method">Select Multiplication Method</string>
+    <string name="method_simple_multiplier">Simple Multiplier\n(Multipliers 3-12)</string>
+    <string name="method_two_digit">2×2 Digit\nMultiplication</string>
+    <string name="method_vertical_crosswise">Vertical &amp;\nCrosswise</string>
+    <string name="method_close_to_base">Close to\na Base</string>
+    <string name="method_duplex_squaring">Duplex\nSquaring</string>
+    <string name="method_same_base">Same Base\nSpecial</string>
+
+    <string name="choose_multiplier">Choose a Multiplier</string>
+
+    <string name="multiplier_3">3\n¼n | ½n</string>
+    <string name="multiplier_4">4\n¼n | 3/2n</string>
+    <string name="multiplier_5">5\n10n/2</string>
+    <string name="multiplier_6">6\n½n | 1n</string>
+    <string name="multiplier_7">7\n10n/2 | 2n</string>
+    <string name="multiplier_8">8\nNikhilam (n-20)</string>
+    <string name="multiplier_9">9\nNikhilam (n-10)</string>
+    <string name="multiplier_11">11\nIdentity</string>
+    <string name="multiplier_12">12\nDouble Identity</string>
+
+    <string name="enter_multiplicand">Enter multiplicand (2 digits)</string>
+    <string name="enter_multiplier">Enter multiplier (2 digits)</string>
+
+    <string name="calculate">Calculate</string>
+    <string name="clear">Clear</string>
+    <string name="observations">Observations &amp; Insights</string>
+    <string name="back">Back</string>
+    <string name="solution_steps">Solution Steps</string>
+    <string name="final_result">Final Result</string>
+    <string name="vedic_format">Vedic One-Line Format</string>
+
+    <string name="observations_title">Method Observations</string>
+    <string name="method_explanation">Method Explanation</string>
+    <string name="weaknesses_limitations">Weaknesses &amp; Limitations</string>
+    <string name="strengths_insights">Strengths &amp; Insights</string>
+    <string name="related_methods">Related Methods</string>
+
+    <string name="help_ratio">"? Ratio"</string>
+    <string name="help_square">"? Square"</string>
+    <string name="help_cube">"? Cube"</string>
+    <string name="help_mult">"? Mult"</string>
+
+    <string name="error_invalid_input">Invalid input. Please use 2-digit numbers.</string>
+    <string name="error_select_method">Please select a method first.</string>
+    <string name="error_select_multiplier">Please select a multiplier.</string>
+    <string name="error_2x2_only">This method is limited to 2x2 digit inputs.</string>
+</resources>
