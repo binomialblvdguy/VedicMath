@@ -18,9 +18,8 @@ class SolutionStepAdapter(
         return StepViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: StepViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StepViewHolder, position: Int) =
         holder.bind(position, steps[position])
-    }
 
     override fun getItemCount(): Int = steps.size
 
@@ -29,7 +28,7 @@ class SolutionStepAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int, step: String) {
-            binding.tvStepNumber.text = "${position + 1}"
+            binding.tvStepNumber.text = (position + 1).toString()
             binding.tvStepText.text = step
         }
     }
