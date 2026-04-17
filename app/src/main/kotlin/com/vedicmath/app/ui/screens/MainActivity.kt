@@ -14,9 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_container, VedicCalculatorFragment())
-                .commit()
+            showCalculatorFragment()
         }
 
         onBackPressedDispatcher.addCallback(this) {
@@ -34,5 +32,11 @@ class MainActivity : AppCompatActivity() {
             if (addToBackStack) addToBackStack(null)
             commit()
         }
+    }
+
+    private fun showCalculatorFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, VedicCalculatorFragment())
+            .commit()
     }
 }
