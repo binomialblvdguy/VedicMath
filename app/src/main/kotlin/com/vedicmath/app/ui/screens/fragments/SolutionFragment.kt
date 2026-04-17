@@ -25,15 +25,18 @@ class SolutionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val method = arguments?.getString(ARG_METHOD).orEmpty()
-        val result = arguments?.getString(ARG_RESULT).orEmpty()
-        val steps = arguments?.getStringArrayList(ARG_STEPS).orEmpty()
+        val args = arguments
+        val method = args?.getString(ARG_METHOD).orEmpty()
+        val result = args?.getString(ARG_RESULT).orEmpty()
+        val steps = args?.getStringArrayList(ARG_STEPS).orEmpty()
 
         binding.tvSolutionMethod.text = method
         binding.tvSolutionResult.text = result
 
-        binding.recyclerSolutionSteps.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerSolutionSteps.adapter = SolutionStepAdapter(steps)
+        binding.recyclerSolutionSteps.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = SolutionStepAdapter(steps)
+        }
 
         binding.btnBackToCalculator.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -54,13 +57,11 @@ class SolutionFragment : Fragment() {
             method: String,
             result: String,
             steps: ArrayList<String>
-        ): SolutionFragment {
-            return SolutionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_METHOD, method)
-                    putString(ARG_RESULT, result)
-                    putStringArrayList(ARG_STEPS, steps)
-                }
+        ): SolutionFragment = SolutionFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_METHOD, method)
+                putString(ARG_RESULT, result)
+                putStringArrayList(ARG_STEPS, steps)
             }
         }
     }
