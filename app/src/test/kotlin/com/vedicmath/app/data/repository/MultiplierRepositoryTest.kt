@@ -33,5 +33,16 @@ class MultiplierRepositoryTest {
         assertEquals(listOf(3, 4, 5, 6, 7, 8, 9, 11, 12), multipliers)
         assertTrue(multipliers == multipliers.sorted())
     }
+
+    @Test
+    fun getAllMultipliers_eachValueResolvesToMatchingRatio() {
+        val multipliers = MultiplierRepository.getAllMultipliers()
+
+        multipliers.forEach { multiplier ->
+            val ratio = MultiplierRepository.getRatioForMultiplier(multiplier)
+            assertNotNull("Expected ratio for multiplier $multiplier", ratio)
+            assertEquals(multiplier, ratio!!.multiplier)
+        }
+    }
 }
 
