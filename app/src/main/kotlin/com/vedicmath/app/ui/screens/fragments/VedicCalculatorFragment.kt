@@ -284,12 +284,12 @@ class VedicCalculatorFragment : Fragment() {
             .show()
     }
 
-    private fun getN1(): Int? {
-        return binding.etInputOne.text?.toString()?.trim()?.takeIf { it.isNotEmpty() }?.toIntOrNull()
-    }
+    private fun getN1(): Int? = parseInput(binding.etInputOne.text?.toString())
 
-    private fun getN2(): Int? {
-        return binding.etInputTwo.text?.toString()?.trim()?.takeIf { it.isNotEmpty() }?.toIntOrNull()
+    private fun getN2(): Int? = parseInput(binding.etInputTwo.text?.toString())
+
+    private fun parseInput(value: String?): Int? {
+        return value?.trim()?.takeIf { it.isNotEmpty() }?.toIntOrNull()
     }
 
     private fun clearInputErrors() {
