@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#121212"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:background="#121212">
+    android:padding="24dp">
 
     <TextView
         android:id="@+id/tvSlideTitle"
@@ -12,7 +13,8 @@
         android:layout_height="wrap_content"
         android:textColor="#FFEB3B"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:text="Vertical and Crosswise" />
 
     <TextView
         android:id="@+id/tvAlgebraicFormula"
@@ -20,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        tools:text="(10a + b)(10c + d) = 100ac + 10(ad + bc) + bd" />
 
     <TextView
         android:id="@+id/tvVisualPattern"
@@ -28,7 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textColor="#B0B0B0"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        tools:text="Visualize the I-X-I pattern." />
 
     <TextView
         android:id="@+id/tvComparisonText"
@@ -37,5 +41,6 @@
         android:layout_marginTop="16dp"
         android:textColor="#4CAF50"
         android:textSize="14sp"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        tools:text="Useful when standard multiplication feels too slow." />
 </LinearLayout>
