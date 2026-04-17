@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#121212"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".ui.screens.fragments.SolutionFragment">
 
     <TextView
         android:id="@+id/tvSolutionTitle"
@@ -14,9 +16,9 @@
         android:textColor="#FFEB3B"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvMethodLabel"
@@ -26,9 +28,9 @@
         android:text="Method"
         android:textColor="#BBBBBB"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvSolutionTitle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvSolutionTitle" />
 
     <TextView
         android:id="@+id/tvSolutionMethod"
@@ -40,9 +42,10 @@
         android:textColor="#FFEB3B"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tvMethodLabel"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvMethodLabel"
+        tools:text="Same Units" />
 
     <TextView
         android:id="@+id/tvResultLabel"
@@ -52,9 +55,9 @@
         android:text="Result"
         android:textColor="#BBBBBB"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvSolutionMethod"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvSolutionMethod" />
 
     <TextView
         android:id="@+id/tvSolutionResult"
@@ -66,9 +69,10 @@
         android:textColor="#FFEB3B"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tvResultLabel"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvResultLabel"
+        tools:text="1425" />
 
     <TextView
         android:id="@+id/tvStepsLabel"
@@ -78,9 +82,9 @@
         android:text="Steps"
         android:textColor="#BBBBBB"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvSolutionResult"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvSolutionResult" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSolutionSteps"
@@ -89,10 +93,12 @@
         android:layout_marginTop="8dp"
         android:clipToPadding="false"
         android:paddingBottom="12dp"
-        app:layout_constraintTop_toBottomOf="@id/tvStepsLabel"
         app:layout_constraintBottom_toTopOf="@id/btnBackToCalculator"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvStepsLabel"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_solution_step" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBackToCalculator"
@@ -104,7 +110,7 @@
         android:text="BACK"
         android:textColor="#121212"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
