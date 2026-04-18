@@ -18,13 +18,14 @@ internal fun solveByOneMoreSameTens(a: Int, b: Int): CalculationResult {
             result = result.toString(),
             steps = listOf(
                 "Method: By 1 More",
-                "$a and $b have the same tens digit = $t",
-                "Units sum = $u + $v = $sumUnits",
+                "$a and $b share the same tens digit: $t",
+                "Add the units digits: $u + $v = $sumUnits",
+                "Since the units total is above 10, the extra part is $sumUnits - 10 = $excess",
                 "Left block = $t × ${t + 1} = $left",
-                "Middle block = $t × ($sumUnits - 10) = $middle",
+                "Middle block = $t × $excess = $middle",
                 "Right block = $u × $v = $right",
-                "One-line form = $left | ${fmtBlock(middle)} | ${fmtBlock(right)}",
-                "Answer = $result"
+                "Combine the blocks: $left | ${fmtBlock(middle)} | ${fmtBlock(right)}",
+                "Final answer = $result"
             )
         )
     } else {
@@ -52,13 +53,13 @@ internal fun solveSum9SameTens(a: Int, b: Int): CalculationResult {
             result = result.toString(),
             steps = listOf(
                 "Method: Sum 9 Same Tens",
-                "$a and $b have the same tens digit = $t",
-                "Units sum = $u + $v = 9",
-                "By-1-more head = $t × ${t + 1} × 10 = $baseHead",
-                "Subtract tens digit = $baseHead - $t = $left",
+                "$a and $b share the same tens digit: $t",
+                "Add the units digits: $u + $v = 9",
+                "Start with the by-1-more head: $t × ${t + 1} × 10 = $baseHead",
+                "Subtract the tens digit: $baseHead - $t = $left",
                 "Right block = $u × $v = $right",
-                "One-line form = $left | ${fmtBlock(right)}",
-                "Answer = $result"
+                "Combine the blocks: $left | ${fmtBlock(right)}",
+                "Final answer = $result"
             )
         )
     } else {
@@ -82,9 +83,9 @@ internal fun solveSameUnits(a: Int, b: Int): CalculationResult {
         val result = a * b
 
         val extraNote = if (t1 + t2 == 11) {
-            "Since the tens digits total 11, the middle block is a multiple of 11."
+            "The tens digits add to 11, so the middle block follows a nice 11-pattern."
         } else {
-            "Middle block = units × (sum of tens digits)."
+            "The middle block comes from units × (sum of the tens digits)."
         }
 
         CalculationResult(
@@ -97,8 +98,8 @@ internal fun solveSameUnits(a: Int, b: Int): CalculationResult {
                 "Middle block = $u × (${t1 + t2}) = $middle",
                 "Right block = $u × $u = $right",
                 extraNote,
-                "One-line form = $left | ${fmtBlock(middle)} | ${fmtBlock(right)}",
-                "Answer = $result"
+                "Combine the blocks: $left | ${fmtBlock(middle)} | ${fmtBlock(right)}",
+                "Final answer = $result"
             )
         )
     } else {
@@ -129,8 +130,8 @@ internal fun solveReciprocalDigits(a: Int, b: Int): CalculationResult {
                 "Left block = $x × $y = $left",
                 "Middle block = $x² + $y² = ${x * x} + ${y * y} = $middle",
                 "Right block = $x × $y = $right",
-                "One-line form = $left | ${fmtBlock(middle)} | ${fmtBlock(right)}",
-                "Answer = $result"
+                "Combine the blocks: $left | ${fmtBlock(middle)} | ${fmtBlock(right)}",
+                "Final answer = $result"
             )
         )
     } else {
