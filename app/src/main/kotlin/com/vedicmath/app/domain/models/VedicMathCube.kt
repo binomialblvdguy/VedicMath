@@ -12,9 +12,9 @@ internal fun solveOneLineCube(n: Int): CalculationResult {
 
         val steps = mutableListOf<String>()
         steps += "Method: One-Line 1|6|12|8"
-        steps += "$n = 10×$a + $b"
-        steps += "Use coefficient row 1 : 3 : 3 : 1"
-        steps += "Blocks = $c0 | $c1 | $c2 | $c3"
+        steps += "Write $n as 10×$a + $b"
+        steps += "Use the cube coefficient row 1 : 3 : 3 : 1"
+        steps += "Build the four blocks: $c0 | $c1 | $c2 | $c3"
 
         val blocks = listOf(c0, c1, c2, c3)
         val written = mutableListOf<Int>()
@@ -25,7 +25,7 @@ internal fun solveOneLineCube(n: Int): CalculationResult {
             val writeDigit = total % 10
             carry = total / 10
             written.add(0, writeDigit)
-            steps += "$total -> write $writeDigit, carry $carry"
+            steps += "From right to left: $total gives write $writeDigit and carry $carry"
         }
 
         val answerText = buildString {
@@ -33,7 +33,8 @@ internal fun solveOneLineCube(n: Int): CalculationResult {
             written.forEach { append(it) }
         }
 
-        steps += "Answer = $answerText = $result"
+        steps += "Read the written digits together: $answerText"
+        steps += "Final answer = $result"
 
         CalculationResult(
             methodName = "One-Line 1|6|12|8",
@@ -66,10 +67,10 @@ internal fun solveBaseRowCube(n: Int): CalculationResult {
 
         val steps = mutableListOf<String>()
         steps += "Method: Base Row 1|2|4|8"
-        steps += "$n = 10×$a + $b"
-        steps += "Base row = ${row1.joinToString(separator = " | ")}"
-        steps += "Double under the middle blocks = ${row2.joinToString(separator = " | ")}"
-        steps += "Add them = ${totalBlocks.joinToString(separator = " | ")}"
+        steps += "Write $n as 10×$a + $b"
+        steps += "Base row blocks = ${row1.joinToString(separator = " | ")}"
+        steps += "Double the two middle contributions = ${row2.joinToString(separator = " | ")}"
+        steps += "Add the rows block by block = ${totalBlocks.joinToString(separator = " | ")}"
 
         val written = mutableListOf<Int>()
         var carry = 0
@@ -79,7 +80,7 @@ internal fun solveBaseRowCube(n: Int): CalculationResult {
             val writeDigit = total % 10
             carry = total / 10
             written.add(0, writeDigit)
-            steps += "$total -> write $writeDigit, carry $carry"
+            steps += "From right to left: $total gives write $writeDigit and carry $carry"
         }
 
         val answerText = buildString {
@@ -87,7 +88,8 @@ internal fun solveBaseRowCube(n: Int): CalculationResult {
             written.forEach { append(it) }
         }
 
-        steps += "Answer = $answerText = $result"
+        steps += "Read the written digits together: $answerText"
+        steps += "Final answer = $result"
 
         CalculationResult(
             methodName = "Base Row 1|2|4|8",
@@ -114,13 +116,14 @@ internal fun solveAlgebraicCube(n: Int): CalculationResult {
             result = result.toString(),
             steps = listOf(
                 "Method: Algebraic Cube",
-                "$n = $tens + $units",
-                "Use: (a + b)³ = a³ + 3a²b + 3ab² + b³",
+                "Split $n into $tens + $units",
+                "Use the identity (a + b)³ = a³ + 3a²b + 3ab² + b³",
                 "a³ = $tens³ = ${tens * tens * tens}",
                 "3a²b = 3 × $tens² × $units = ${3 * tens * tens * units}",
                 "3ab² = 3 × $tens × $units² = ${3 * tens * units * units}",
                 "b³ = $units³ = ${units * units * units}",
-                "Answer = $result"
+                "Add all parts together to get the cube",
+                "Final answer = $result"
             )
         )
     } else {
@@ -137,10 +140,10 @@ internal fun solveLargeCube(n: Int): CalculationResult {
         result = result.toString(),
         steps = listOf(
             "Method: Repeated Multiplication Cube",
-            "First compute square: $n × $n = $square",
-            "Then multiply by $n",
+            "First compute the square: $n × $n = $square",
+            "Then multiply that square by $n",
             "$square × $n = $result",
-            "Answer = $result"
+            "Final answer = $result"
         )
     )
 }
