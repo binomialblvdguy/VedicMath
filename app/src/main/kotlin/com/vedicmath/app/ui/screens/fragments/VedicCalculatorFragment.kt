@@ -204,40 +204,72 @@ class VedicCalculatorFragment : Fragment() {
     private fun setupHelpButtons() {
         binding.btnHelpRatio.setOnClickListener {
             showHelpDialog(
-                title = "Ratio / Multiply Help",
+                title = "Multiply Method Guide",
                 message = """
-                    Multiply sub-methods:
+                    Choose a method that matches the number pattern:
+
+                    • AUTO
+                      Lets the app choose the clearest method.
 
                     • BY 1 MORE
+                      Same tens digit, units total 10 or more.
+
                     • SUM 9 SAME TENS
+                      Same tens digit, units total exactly 9.
+
                     • SAME UNITS
+                      Both numbers end in the same digit.
+
                     • RECIPROCALS
-                    • 1-DIGIT GROUP
-                    • 2-DIGIT GROUP
+                      Reverse-digit pairs such as 24 × 42.
+
+                    • 1-DIGIT GROUP / 2-DIGIT GROUP
+                      Break a large multiplication into grouped parts.
+
                     • VERTICAL
+                      Good general method for 2-digit multiplication.
+
                     • NEAR-BASE
+                      Best when numbers are close to 10 or 100.
+
                     • SERIES
+                      Useful when one number has a clear digit pattern.
                 """.trimIndent()
             )
         }
 
         binding.btnHelpMult.setOnClickListener {
             showHelpDialog(
-                title = "Multiply Help",
+                title = "Multiply Examples",
                 message = """
-                    New multiply shortcuts:
+                    Quick examples for the multiply methods:
 
                     • SUM 9 SAME TENS
-                      Example: 26 × 23
+                      26 × 23
 
                     • BY 1 MORE
-                      Example: 56 × 56
+                      56 × 54 or 58 × 52
 
                     • SAME UNITS
-                      Example: 27 × 97
+                      27 × 97 or 15 × 95
 
                     • RECIPROCALS
-                      Example: 24 × 42
+                      24 × 42
+
+                    • 1-DIGIT GROUP
+                      123 × 4
+
+                    • 2-DIGIT GROUP
+                      123 × 24
+
+                    • VERTICAL
+                      23 × 47
+
+                    • NEAR-BASE
+                      97 × 96
+
+                    • SERIES
+                      123 × 246
                 """.trimIndent()
             )
         }
@@ -246,12 +278,22 @@ class VedicCalculatorFragment : Fragment() {
             showHelpDialog(
                 title = "Square Help",
                 message = """
-                    Square methods now include:
+                    Square methods available:
+
+                    • AUTO
+                      Lets the app choose the clearest method.
 
                     • ENDS 1/4
+                      Useful for numbers ending in 1 or 4.
+
                     • ENDS 5
+                      Classic shortcut for numbers ending in 5.
+
                     • ENDS 6/9
+                      Useful for numbers ending in 6 or 9.
+
                     • DUPLEX
+                      A more general squaring method.
                 """.trimIndent()
             )
         }
@@ -260,11 +302,19 @@ class VedicCalculatorFragment : Fragment() {
             showHelpDialog(
                 title = "Cube Help",
                 message = """
-                    Cube methods now include:
+                    Cube methods available:
+
+                    • AUTO
+                      Lets the app choose the clearest method.
 
                     • ONE-LINE 1|6|12|8
+                      Pattern-based shortcut for some cubes.
+
                     • BASE ROW 1|2|4|8
+                      Uses ratio-style cube structure.
+
                     • ALGEBRAIC
+                      Uses algebraic expansion ideas.
                 """.trimIndent()
             )
         }
