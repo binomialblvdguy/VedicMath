@@ -12,14 +12,14 @@ internal fun solveBase10Grouping(a: Int, b: Int): CalculationResult {
         result = result.toString(),
         steps = listOf(
             "Method: Base-10 Grouping",
-            "Choose base = 10",
+            "Use base 10 because both numbers are close to 10",
             "$a = 10 + $p",
             "$b = 10 + $q",
-            "Use: (10 + p)(10 + q) = 10(10 + p + q) + pq",
+            "Apply (10 + p)(10 + q) = 10(10 + p + q) + pq",
             "Left group = 10 + $p + $q = $leftGroup",
             "Right group = $p × $q = $rightGroup",
-            "Grouped form = $leftGroup | $rightGroup",
-            "Answer = $result"
+            "Combine the groups: $leftGroup | $rightGroup",
+            "Final answer = $result"
         )
     )
 }
@@ -31,7 +31,7 @@ internal fun solveSingleDigitGrouping(a: Int, b: Int): CalculationResult {
         else -> overrideResult(
             name = "1-Digit Grouping",
             base = solvePositionalSplit(a, b),
-            note = "No single-digit multiplier found, so positional split was used."
+            note = "A single-digit multiplier was not available, so positional split was clearer."
         )
     }
 }
@@ -43,7 +43,7 @@ internal fun solveTwoDigitGrouping(a: Int, b: Int): CalculationResult {
         else -> overrideResult(
             name = "2-Digit Grouping",
             base = VedicMath.solveMultiplication(a, b),
-            note = "A clean two-digit grouping pattern was not available for this input."
+            note = "A clean two-digit grouping pattern was not available for these numbers."
         )
     }
 }
@@ -74,14 +74,14 @@ internal fun solveDigitGroupingCore(
 
     val steps = mutableListOf<String>()
     steps += "Method: $methodName"
-    steps += "Long factor = $longFactor"
-    steps += "Short factor = $shortFactor"
+    steps += "Use the longer number as the main grouped factor: $longFactor"
+    steps += "Use the shorter number as the repeated multiplier: $shortFactor"
 
     digits.forEach { digit ->
-        steps += "$digit × $shortFactor = ${digit * shortFactor}"
+        steps += "Multiply digit $digit by $shortFactor = ${digit * shortFactor}"
     }
 
-    steps += "Grouped form = ${rawGroups.joinToString(separator = " | ")}"
+    steps += "Raw grouped values: ${rawGroups.joinToString(separator = " | ")}"
 
     val writtenDigits = mutableListOf<Int>()
     var carry = 0
@@ -91,7 +91,7 @@ internal fun solveDigitGroupingCore(
         val writeDigit = total % 10
         carry = total / 10
         writtenDigits.add(0, writeDigit)
-        steps += "$total -> write $writeDigit, carry $carry"
+        steps += "From right to left: $total gives write $writeDigit and carry $carry"
     }
 
     val answerText = buildString {
@@ -99,7 +99,8 @@ internal fun solveDigitGroupingCore(
         writtenDigits.forEach { append(it) }
     }
 
-    steps += "Answer = $answerText = $result"
+    steps += "Read the written digits together: $answerText"
+    steps += "Final answer = $result"
 
     return CalculationResult(
         methodName = methodName,
@@ -126,13 +127,14 @@ internal fun solvePositionalSplit(a: Int, b: Int): CalculationResult {
 
     val steps = mutableListOf<String>()
     steps += "Method: Positional Split"
-    steps += "Split $splitFactor into place values: ${parts.joinToString(separator = " + ")}"
+    steps += "Break $splitFactor into place values: ${parts.joinToString(separator = " + ")}"
 
     parts.forEachIndexed { index, part ->
         steps += "$otherFactor × $part = ${partials[index]}"
     }
 
-    steps += "Add partials: ${partials.joinToString(separator = " + ")} = $result"
+    steps += "Add the partial results: ${partials.joinToString(separator = " + ")} = $result"
+    steps += "Final answer = $result"
 
     return CalculationResult(
         methodName = "Positional Split",
