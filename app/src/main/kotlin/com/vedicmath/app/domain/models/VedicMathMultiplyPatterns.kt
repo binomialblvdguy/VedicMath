@@ -82,10 +82,22 @@ internal fun solveSameUnits(a: Int, b: Int): CalculationResult {
         val right = u * u
         val result = a * b
 
-        val extraNote = if (t1 + t2 == 11) {
-            "The tens digits add to 11, so the middle block follows a nice 11-pattern."
+        val carryFriendlyNote = when {
+            u == 5 && middle % 10 == 0 -> {
+                "Because both numbers end in 5, the ending block is always 25. The middle block $middle contributes ${middle / 10} into the left side."
+            }
+            t1 + t2 == 11 -> {
+                "The tens digits add to 11, so the middle block follows a nice 11-pattern."
+            }
+            else -> {
+                "The middle block comes from units × (sum of the tens digits)."
+            }
+        }
+
+        val combineStep = if (u == 5 && middle % 10 == 0) {
+            "Normalize the form: $left + ${middle / 10} | 25 = ${left + (middle / 10)} | 25"
         } else {
-            "The middle block comes from units × (sum of the tens digits)."
+            "Combine the blocks: $left | ${fmtBlock(middle)} | ${fmtBlock(right)}"
         }
 
         CalculationResult(
@@ -97,8 +109,8 @@ internal fun solveSameUnits(a: Int, b: Int): CalculationResult {
                 "Left block = $t1 × $t2 = $left",
                 "Middle block = $u × (${t1 + t2}) = $middle",
                 "Right block = $u × $u = $right",
-                extraNote,
-                "Combine the blocks: $left | ${fmtBlock(middle)} | ${fmtBlock(right)}",
+                carryFriendlyNote,
+                combineStep,
                 "Final answer = $result"
             )
         )

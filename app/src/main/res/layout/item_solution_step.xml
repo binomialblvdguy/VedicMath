@@ -23,7 +23,7 @@
             android:id="@+id/tvStepNumber"
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:background="@drawable/bg_neon_cyan"
+            android:background="@drawable/circle_yellow"
             android:gravity="center"
             android:textColor="#121212"
             android:textSize="15sp"
