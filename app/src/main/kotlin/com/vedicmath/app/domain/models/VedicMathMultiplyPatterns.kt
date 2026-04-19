@@ -83,8 +83,10 @@ internal fun solveSameUnits(a: Int, b: Int): CalculationResult {
         val result = a * b
 
         if (u == 5) {
+            val tensSum = t1 + t2
             val normalizedLeft = left + (middle / 10)
             val normalizedSuffix = if (middle % 10 == 0) 25 else 75
+            val parityWord = if (tensSum % 2 == 0) "even" else "odd"
 
             CalculationResult(
                 methodName = "Same Units",
@@ -92,9 +94,9 @@ internal fun solveSameUnits(a: Int, b: Int): CalculationResult {
                 steps = listOf(
                     "Same Units / Both end in 5",
                     "Prefix = $t1 × $t2 = $left",
-                    "Middle block comes from 5 × (${t1 + t2}), so it always ends in 0 or 5",
-                    "Here the middle block is 5 × (${t1 + t2}) = $middle",
-                    "The end block is either 25 or 75. Here it is $normalizedSuffix",
+                    "Middle rule for ...5 × ...5:\n5 × ($t1 + $t2) = 5 × $tensSum = $middle, so the ending becomes 25 or 75",
+                    "Here the middle block is $middle",
+                    "The tens sum $tensSum is $parityWord, so the end block is $normalizedSuffix",
                     "Normalize the form: $left + ${middle / 10} | $normalizedSuffix = $normalizedLeft | $normalizedSuffix",
                     "Final answer = $result"
                 )
