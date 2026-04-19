@@ -12,25 +12,24 @@ internal fun solveNearBase100Nikhilam(a: Int, b: Int): CalculationResult {
     val result = a * b
     val rightText = right.toString().padStart(2, '0')
 
+    val steps = mutableListOf(
+        "Method: Near-100 Nikhilam • Use base 100 because both numbers are close to 100",
+        "$a is $da below 100, and $b is $db below 100",
+        "Cross-subtract either way: $a - $db = $leftRaw and $b - $da = $leftRaw",
+        "Multiply the deficits: $da × $db = $rightRaw"
+    )
+
+    if (carry > 0) {
+        steps += "Carry $carry from the right part, so the left part becomes $left"
+    }
+
+    steps += "Combine the parts: $left | $rightText"
+    steps += "Final answer = $result"
+
     return CalculationResult(
         methodName = "Near-100 Nikhilam",
         result = result.toString(),
-        steps = listOf(
-            "Method: Near-100 Nikhilam",
-            "Use base 100 because both numbers are close to 100",
-            "$a is $da below 100",
-            "$b is $db below 100",
-            "Cross-subtract to get the left part: $a - $db = $leftRaw",
-            "Multiply the deficits to get the right part: $da × $db = $rightRaw",
-            if (carry > 0) {
-                "Carry $carry from the right part into the left part"
-            } else {
-                "No carry is needed from the right part"
-            },
-            "Write the right part as two digits: $rightText",
-            "Combine the parts: $left | $rightText",
-            "Final answer = $result"
-        )
+        steps = steps
     )
 }
 
