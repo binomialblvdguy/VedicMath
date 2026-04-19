@@ -13,10 +13,16 @@ internal fun solveByOneMoreSameTens(a: Int, b: Int): CalculationResult {
         val right = u * v
         val result = a * b
 
-        CalculationResult(
-            methodName = "By 1 More",
-            result = result.toString(),
-            steps = listOf(
+        val steps = if (excess == 0) {
+            listOf(
+                "Method: By 1 More",
+                "$a and $b share the same tens digit: $t, and the units digits add to $sumUnits",
+                "Since the units total is 10, the extra part is 0 and the left block is $t × ${t + 1} = $left",
+                "Right block = $u × $v = $right",
+                "Combine the blocks: $left | ${fmtBlock(right)}\nFinal answer = $result"
+            )
+        } else {
+            listOf(
                 "Method: By 1 More",
                 "$a and $b share the same tens digit: $t",
                 "Add the units digits: $u + $v = $sumUnits",
@@ -27,6 +33,12 @@ internal fun solveByOneMoreSameTens(a: Int, b: Int): CalculationResult {
                 "Combine the blocks: $left | ${fmtBlock(middle)} | ${fmtBlock(right)}",
                 "Final answer = $result"
             )
+        }
+
+        CalculationResult(
+            methodName = "By 1 More",
+            result = result.toString(),
+            steps = steps
         )
     } else {
         overrideResult(

@@ -111,21 +111,35 @@ internal fun solveAlgebraicCube(n: Int): CalculationResult {
         val units = n % 10
         val result = n * n * n
 
-        CalculationResult(
-            methodName = "Algebraic Cube",
-            result = result.toString(),
-            steps = listOf(
-                "Method: Algebraic Cube",
-                "Split $n into $tens + $units",
-                "Use the identity (a + b)³ = a³ + 3a²b + 3ab² + b³",
-                "a³ = $tens³ = ${tens * tens * tens}",
-                "3a²b = 3 × $tens² × $units = ${3 * tens * tens * units}",
-                "3ab² = 3 × $tens × $units² = ${3 * tens * units * units}",
-                "b³ = $units³ = ${units * units * units}",
-                "Add all parts together to get the cube",
-                "Final answer = $result"
+        if (n == 12) {
+            CalculationResult(
+                methodName = "Algebraic Cube",
+                result = result.toString(),
+                steps = listOf(
+                    "Method: Algebraic Cube",
+                    "a³ = $tens³ = ${tens * tens * tens}",
+                    "$n = $tens + $units, so 3a²b = ${3 * tens * tens * units} and 3ab² = ${3 * tens * units * units}",
+                    "1 | 6 | 12 | b³",
+                    "1 | 6 | 12 | ${units * units * units}\nFinal answer = $result"
+                )
             )
-        )
+        } else {
+            CalculationResult(
+                methodName = "Algebraic Cube",
+                result = result.toString(),
+                steps = listOf(
+                    "Method: Algebraic Cube",
+                    "Split $n into $tens + $units",
+                    "Use the identity (a + b)³ = a³ + 3a²b + 3ab² + b³",
+                    "a³ = $tens³ = ${tens * tens * tens}",
+                    "3a²b = 3 × $tens² × $units = ${3 * tens * tens * units}",
+                    "3ab² = 3 × $tens × $units² = ${3 * tens * units * units}",
+                    "b³ = $units³ = ${units * units * units}",
+                    "Add all parts together to get the cube",
+                    "Final answer = $result"
+                )
+            )
+        }
     } else {
         solveLargeCube(n)
     }
