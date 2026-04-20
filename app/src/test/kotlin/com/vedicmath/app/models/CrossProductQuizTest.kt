@@ -1,42 +1,113 @@
 package com.vedicmath.app.models
 
-data class CrossProductQuizItem(
-    val leftNumber: Int,
-    val rightNumber: Int,
-    val expectedCrossTerm: Int,
-    val typeLabel: String,
-    val prompt: String,
-    val explanation: String
-)
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
-object CrossProductQuiz {
+class CrossProductQuizTest {
 
-    fun createUnitsSum10TensStep1Item(
-        smallerTens: Int,
-        smallerUnits: Int
-    ): CrossProductQuizItem {
-        require(smallerTens in 1..8) {
-            "smallerTens must be between 1 and 8"
-        }
-        require(smallerUnits in 1..9) {
-            "smallerUnits must be between 1 and 9"
-        }
+    @Test
+    fun createUnitsSum10TensStep1Item_buildsExpectedExample_37x43() {
+        val item = CrossProductQuiz.createUnitsSum10TensStep1Item(
+            smallerTens = 3,
+            smallerUnits = 7
+        )
 
-        val left = smallerTens * 10 + smallerUnits
-        val right = (smallerTens + 1) * 10 + (10 - smallerUnits)
-        val expectedCross = left
+        assertEquals(37, item.leftNumber)
+        assertEquals(43, item.rightNumber)
+        assertEquals(37, item.expectedCrossTerm)
+        assertEquals("Units Sum 10 / Tens Differ by 1", item.typeLabel)
+    }
 
-        return CrossProductQuizItem(
-            leftNumber = left,
-            rightNumber = right,
-            expectedCrossTerm = expectedCross,
-            typeLabel = "Units Sum 10 / Tens Differ by 1",
-            prompt = "Find only the cross term for $left × $right",
-            explanation = "Because the tens differ by 1 and the units add to 10, the cross term equals the smaller number: $left."
+    @Test
+    fun createUnitsSum10TensStep1Item_buildsExpectedExample_28x32() {
+        val item = CrossProductQuiz.createUnitsSum10TensStep1Item(
+            smallerTens = 2,
+            smallerUnits = 8
+        )
+
+        assertEquals(28, item.leftNumber)
+        assertEquals(32, item.rightNumber)
+        assertEquals(28, item.expectedCrossTerm)
+    }
+
+    @Test
+    fun createUnitsSum5TensStep1Item_buildsExpectedExample_43x52() {
+        val item = CrossProductQuiz.createUnitsSum5TensStep1Item(
+            smallerTens = 4,
+            smallerUnits = 3
+        )
+
+        assertEquals(43, item.leftNumber)
+        assertEquals(52, item.rightNumber)
+        assertEquals(23, item.expectedCrossTerm)
+        assertEquals("Units Sum 5 / Tens Differ by 1", item.typeLabel)
+    }
+
+    @Test
+    fun createUnitsSum5TensStep1Item_buildsExpectedExample_33x42() {
+        val item = CrossProductQuiz.createUnitsSum5TensStep1Item(
+            smallerTens = 3,
+            smallerUnits = 3
+        )
+
+        assertEquals(33, item.leftNumber)
+        assertEquals(42, item.rightNumber)
+        assertEquals(18, item.expectedCrossTerm)
+    }
+
+    @Test
+    fun checkAnswer_returnsTrue_forUnitsSum10Rule() {
+        val item = CrossProductQuiz.createUnitsSum10TensStep1Item(
+            smallerTens = 3,
+            smallerUnits = 7
+        )
+
+        assertTrue(CrossProductQuiz.checkAnswer(item, 37))
+    }
+
+    @Test
+    fun checkAnswer_returnsTrue_forUnitsSum5Rule() {
+        val item = CrossProductQuiz.createUnitsSum5TensStep1Item(
+            smallerTens = 4,
+            smallerUnits = 3
+        )
+
+        assertTrue(CrossProductQuiz.checkAnswer(item, 23))
+    }
+
+    @Test
+    fun checkAnswer_returnsFalse_forWrongAnswer() {
+        val item = CrossProductQuiz.createUnitsSum5TensStep1Item(
+            smallerTens = 4,
+            smallerUnits = 3
+        )
+
+        assertFalse(CrossProductQuiz.checkAnswer(item, 22))
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun createUnitsSum10TensStep1Item_rejectsInvalidTens() {
+        CrossProductQuiz.createUnitsSum10TensStep1Item(
+            smallerTens = 9,
+            smallerUnits = 7
         )
     }
 
-    fun checkAnswer(item: CrossProductQuizItem, answer: Int): Boolean {
-        return item.expectedCrossTerm == answer
+    @Test(expected = IllegalArgumentException::class)
+    fun createUnitsSum10TensStep1Item_rejectsInvalidUnits() {
+        CrossProductQuiz.createUnitsSum10TensStep1Item(
+            smallerTens = 3,
+            smallerUnits = 0
+        )
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun createUnitsSum5TensStep1Item_rejectsInvalidUnits() {
+        CrossProductQuiz.createUnitsSum5TensStep1Item(
+            smallerTens = 4,
+            smallerUnits = 6
+        )
     }
 }
