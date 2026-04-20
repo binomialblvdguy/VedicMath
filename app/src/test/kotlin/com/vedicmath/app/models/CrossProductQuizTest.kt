@@ -74,7 +74,7 @@ class CrossProductQuizTest {
 
         assertEquals(29, item.leftNumber)
         assertEquals(91, item.rightNumber)
-        assertEquals(73, item.expectedCrossTerm)
+        assertEquals(83, item.expectedCrossTerm)
         assertEquals("Yaavadunam-Style Observation", item.typeLabel)
     }
 
@@ -139,7 +139,7 @@ class CrossProductQuizTest {
     fun checkAnswer_returnsFalse_forWrongAnswer() {
         val item = CrossProductQuiz.createYaavadunamStyleItem29x91()
 
-        assertFalse(CrossProductQuiz.checkAnswer(item, 72))
+        assertFalse(CrossProductQuiz.checkAnswer(item, 82))
     }
 
     @Test(expected = IllegalArgumentException::class)

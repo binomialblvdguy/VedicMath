@@ -71,7 +71,7 @@ object CrossProductQuiz {
             expectedCrossTerm = 82,
             typeLabel = "Yaavadunam-Style Observation",
             prompt = "Find only the cross term for 19 × 91",
-            explanation = "Observed shortcut: ((9 - 1) - 1) × 9 + 19 = 63 + 19 = 82."
+            explanation = "Deficiency from 9 is 8. One less is 7. Then 7 × 9 = 63, and 63 + 19 = 82."
         )
     }
 
@@ -79,10 +79,10 @@ object CrossProductQuiz {
         return CrossProductQuizItem(
             leftNumber = 29,
             rightNumber = 91,
-            expectedCrossTerm = 73,
+            expectedCrossTerm = 83,
             typeLabel = "Yaavadunam-Style Observation",
             prompt = "Find only the cross term for 29 × 91",
-            explanation = "Observed shortcut for this pattern gives cross term 73."
+            explanation = "Deficiency from 9 is 7. One less is 6. Then 6 × 9 = 54, and 54 + 29 = 83."
         )
     }
 
