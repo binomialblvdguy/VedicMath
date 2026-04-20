@@ -43,6 +43,7 @@ class VedicCalculatorFragment : Fragment() {
 
         setupModeToggle()
         setupHelpButtons()
+        setupQuizButton()
         refreshMethodChips()
         updateModeUi()
 
@@ -317,6 +318,12 @@ class VedicCalculatorFragment : Fragment() {
                       Uses algebraic expansion ideas.
                 """.trimIndent()
             )
+        }
+    }
+
+    private fun setupQuizButton() {
+        binding.btnCrossQuiz.setOnClickListener {
+            (activity as? MainActivity)?.replaceFragment(CrossProductQuizFragment())
         }
     }
 

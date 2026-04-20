@@ -145,7 +145,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/btnSolve"
+        app:layout_constraintBottom_toTopOf="@id/btnCrossQuiz"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -185,6 +185,19 @@
             android:text="HELP MULT"
             android:textColor="#FFEB3B" />
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCrossQuiz"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="12dp"
+        android:text="CROSS PRODUCT QUIZ"
+        android:textColor="#FFEB3B"
+        app:layout_constraintBottom_toTopOf="@id/btnSolve"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="#FFEB3B" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSolve"
