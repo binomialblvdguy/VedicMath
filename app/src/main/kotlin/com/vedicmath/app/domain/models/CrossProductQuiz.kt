@@ -62,6 +62,28 @@ object CrossProductQuiz {
         )
     }
 
+    fun createYaavadunamStyleItem19x91(): CrossProductQuizItem {
+        return CrossProductQuizItem(
+            leftNumber = 19,
+            rightNumber = 91,
+            expectedCrossTerm = 82,
+            typeLabel = "Yaavadunam-Style Observation",
+            prompt = "Find only the cross term for 19 × 91",
+            explanation = "Observed shortcut: ((9 - 1) - 1) × 9 + 19 = 63 + 19 = 82."
+        )
+    }
+
+    fun createYaavadunamStyleItem29x91(): CrossProductQuizItem {
+        return CrossProductQuizItem(
+            leftNumber = 29,
+            rightNumber = 91,
+            expectedCrossTerm = 73,
+            typeLabel = "Yaavadunam-Style Observation",
+            prompt = "Find only the cross term for 29 × 91",
+            explanation = "Observed shortcut for this pattern gives cross term 73."
+        )
+    }
+
     fun checkAnswer(item: CrossProductQuizItem, answer: Int): Boolean {
         return item.expectedCrossTerm == answer
     }

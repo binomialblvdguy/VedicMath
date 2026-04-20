@@ -58,6 +58,26 @@ class CrossProductQuizTest {
     }
 
     @Test
+    fun createYaavadunamStyleItem19x91_buildsExpectedExample() {
+        val item = CrossProductQuiz.createYaavadunamStyleItem19x91()
+
+        assertEquals(19, item.leftNumber)
+        assertEquals(91, item.rightNumber)
+        assertEquals(82, item.expectedCrossTerm)
+        assertEquals("Yaavadunam-Style Observation", item.typeLabel)
+    }
+
+    @Test
+    fun createYaavadunamStyleItem29x91_buildsExpectedExample() {
+        val item = CrossProductQuiz.createYaavadunamStyleItem29x91()
+
+        assertEquals(29, item.leftNumber)
+        assertEquals(91, item.rightNumber)
+        assertEquals(73, item.expectedCrossTerm)
+        assertEquals("Yaavadunam-Style Observation", item.typeLabel)
+    }
+
+    @Test
     fun checkAnswer_returnsTrue_forUnitsSum10Rule() {
         val item = CrossProductQuiz.createUnitsSum10TensStep1Item(
             smallerTens = 3,
@@ -78,13 +98,17 @@ class CrossProductQuizTest {
     }
 
     @Test
-    fun checkAnswer_returnsFalse_forWrongAnswer() {
-        val item = CrossProductQuiz.createUnitsSum5TensStep1Item(
-            smallerTens = 4,
-            smallerUnits = 3
-        )
+    fun checkAnswer_returnsTrue_forYaavadunamStyle19x91() {
+        val item = CrossProductQuiz.createYaavadunamStyleItem19x91()
 
-        assertFalse(CrossProductQuiz.checkAnswer(item, 22))
+        assertTrue(CrossProductQuiz.checkAnswer(item, 82))
+    }
+
+    @Test
+    fun checkAnswer_returnsFalse_forWrongAnswer() {
+        val item = CrossProductQuiz.createYaavadunamStyleItem29x91()
+
+        assertFalse(CrossProductQuiz.checkAnswer(item, 72))
     }
 
     @Test(expected = IllegalArgumentException::class)
