@@ -136,6 +136,15 @@
             android:textColor="#FFEB3B"
             app:strokeColor="#FFEB3B" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBackToCalculator"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#FFEB3B"
+            android:text="Back to Calculator"
+            android:textColor="#121212" />
+
         <TextView
             android:id="@+id/tvQuizFeedback"
             android:layout_width="match_parent"

@@ -47,6 +47,10 @@ class CrossProductQuizFragment : Fragment() {
             Toast.makeText(requireContext(), "Quiz reset", Toast.LENGTH_SHORT).show()
         }
 
+        binding.btnBackToCalculator.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         updateScoreUi()
         loadNextQuestion()
     }
