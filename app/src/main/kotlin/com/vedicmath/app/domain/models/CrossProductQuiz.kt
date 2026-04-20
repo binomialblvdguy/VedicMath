@@ -1,5 +1,7 @@
 package com.vedicmath.app.models
 
+import kotlin.random.Random
+
 data class CrossProductQuizItem(
     val leftNumber: Int,
     val rightNumber: Int,
@@ -82,6 +84,23 @@ object CrossProductQuiz {
             prompt = "Find only the cross term for 29 × 91",
             explanation = "Observed shortcut for this pattern gives cross term 73."
         )
+    }
+
+    fun createRandomItem(random: Random = Random.Default): CrossProductQuizItem {
+        return when (random.nextInt(4)) {
+            0 -> createUnitsSum10TensStep1Item(
+                smallerTens = random.nextInt(1, 9),
+                smallerUnits = random.nextInt(1, 10)
+            )
+
+            1 -> createUnitsSum5TensStep1Item(
+                smallerTens = random.nextInt(1, 9),
+                smallerUnits = random.nextInt(0, 6)
+            )
+
+            2 -> createYaavadunamStyleItem19x91()
+            else -> createYaavadunamStyleItem29x91()
+        }
     }
 
     fun checkAnswer(item: CrossProductQuizItem, answer: Int): Boolean {

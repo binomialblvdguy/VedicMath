@@ -1,5 +1,6 @@
 package com.vedicmath.app.models
 
+import kotlin.random.Random
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -75,6 +76,36 @@ class CrossProductQuizTest {
         assertEquals(91, item.rightNumber)
         assertEquals(73, item.expectedCrossTerm)
         assertEquals("Yaavadunam-Style Observation", item.typeLabel)
+    }
+
+    @Test
+    fun createRandomItem_returnsValidQuizItems() {
+        val random = Random(1234)
+
+        repeat(20) {
+            val item = CrossProductQuiz.createRandomItem(random)
+
+            assertTrue(item.leftNumber > 0)
+            assertTrue(item.rightNumber > 0)
+            assertTrue(item.prompt.isNotBlank())
+            assertTrue(item.explanation.isNotBlank())
+            assertTrue(CrossProductQuiz.checkAnswer(item, item.expectedCrossTerm))
+        }
+    }
+
+    @Test
+    fun createRandomItem_usesKnownRuleLabels() {
+        val random = Random(5678)
+        val allowedLabels = setOf(
+            "Units Sum 10 / Tens Differ by 1",
+            "Units Sum 5 / Tens Differ by 1",
+            "Yaavadunam-Style Observation"
+        )
+
+        repeat(20) {
+            val item = CrossProductQuiz.createRandomItem(random)
+            assertTrue(item.typeLabel in allowedLabels)
+        }
     }
 
     @Test
