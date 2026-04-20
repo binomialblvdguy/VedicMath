@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212"
+    tools:context=".ui.screens.fragments.CrossProductQuizFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvQuizTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cross Product Quiz"
+            android:textColor="#FFEB3B"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvQuizSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Practice spotting cross terms by observation."
+            android:textColor="#BBBBBB"
+            android:textSize="14sp"
+            tools:text="Practice spotting cross terms by observation." />
+
+        <TextView
+            android:id="@+id/tvQuizScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_neon_cyan"
+            android:padding="16dp"
+            android:textColor="#FFEB3B"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Score: 2/3   Accuracy: 66%" />
+
+        <TextView
+            android:id="@+id/tvQuizTypeLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Rule Type"
+            android:textColor="#BBBBBB"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvQuizType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_neon_cyan"
+            android:padding="16dp"
+            android:textColor="#FFEB3B"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Units Sum 10 / Tens Differ by 1" />
+
+        <TextView
+            android:id="@+id/tvQuizPromptLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Question"
+            android:textColor="#BBBBBB"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvQuizPrompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_neon_cyan"
+            android:padding="16dp"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            tools:text="Find only the cross term for 37 × 43" />
+
+        <TextView
+            android:id="@+id/tvQuizExplanationPreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="#BBBBBB"
+            android:textSize="14sp"
+            tools:text="Solve mentally, then enter only the cross term." />
+
+        <EditText
+            android:id="@+id/etCrossAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_neon_cyan"
+            android:hint="Enter cross term"
+            android:inputType="number"
+            android:padding="16dp"
+            android:textColor="#FFEB3B"
+            android:textColorHint="#666666"
+            tools:text="37" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSubmitAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#FFEB3B"
+            android:text="Check Answer"
+            android:textColor="#121212" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNextQuestion"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:text="Next Question"
+            android:textColor="#FFEB3B"
+            app:strokeColor="#FFEB3B" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnResetQuiz"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:text="Reset Quiz"
+            android:textColor="#FFEB3B"
+            app:strokeColor="#FFEB3B" />
+
+        <TextView
+            android:id="@+id/tvQuizFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_step_card"
+            android:padding="16dp"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            tools:text="Correct ✅&#10;Because the tens differ by 1 and the units add to 10, the cross term equals the smaller number: 37." />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
