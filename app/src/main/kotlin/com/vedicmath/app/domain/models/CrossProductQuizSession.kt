@@ -1,46 +1,58 @@
-package com.vedicmath.app.models
+package com.vedicmath.app.domain.models
 
+import com.vedicmath.app.models.CrossProductQuizItem
+import com.vedicmath.app.models.CrossProductQuizScore
 import kotlin.random.Random
-
-data class CrossProductQuizScore(
-    val totalAsked: Int = 0,
-    val correctAnswers: Int = 0
-) {
-    val incorrectAnswers: Int
-        get() = totalAsked - correctAnswers
-
-    val accuracyPercent: Int
-        get() = if (totalAsked == 0) 0 else (correctAnswers * 100) / totalAsked
-}
 
 class CrossProductQuizSession(
     private var score: CrossProductQuizScore = CrossProductQuizScore()
 ) {
 
+    // Internal session state
+    private val items = mutableListOf<CrossProductQuizItem>()
+    private var index = 0
+
     fun currentScore(): CrossProductQuizScore = score
 
+    // Use domain factory to generate a random item
     fun nextRandomItem(random: Random = Random.Default): CrossProductQuizItem {
+        // Assumes a central factory exists in CrossProductQuiz.kt
         return CrossProductQuiz.createRandomItem(random)
     }
 
-    fun recordAnswer(item: CrossProductQuizItem, answer: Int): Boolean {
-        val isCorrect = CrossProductQuiz.checkAnswer(item, answer)
+    // Current item for UI
+    fun currentItem(): CrossProductQuizItem? = items.getOrNull(index)
 
-        score = if (isCorrect) {
-            score.copy(
-                totalAsked = score.totalAsked + 1,
-                correctAnswers = score.correctAnswers + 1
-            )
-        } else {
-            score.copy(
-                totalAsked = score.totalAsked + 1
-            )
+    // Start a new session with N items
+    fun newSession(size: Int = 5) {
+        items.clear()
+        index = 0
+        score = CrossProductQuizScore()
+        repeat(size) {
+            items.add(nextRandomItem(Random.Default))
         }
-
-        return isCorrect
     }
 
+    // Submit answer for current item
+    fun submitAnswer(answer: Int): Boolean {
+        val item = currentItem() ?: return false
+        val ok = CrossProductQuiz.checkAnswer(item, answer)
+        score = if (ok) {
+            score.copy(totalAsked = score.totalAsked + 1, correctAnswers = score.correctAnswers + 1)
+        } else {
+            score.copy(totalAsked = score.totalAsked + 1)
+        }
+        index++
+        return ok
+    }
+
+    // Reset session
     fun reset() {
+        items.clear()
+        index = 0
         score = CrossProductQuizScore()
     }
+
+    // Finished?
+    fun isFinished(): Boolean = index >= items.size
 }

@@ -6,17 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.vedicmath.app.crossproduct.advanced.AdvancedCrossProductQuizSession
+import com.vedicmath.app.crossproduct.advanced.AdvancedQuizItem
 import com.vedicmath.app.databinding.FragmentCrossProductQuizBinding
+import com.vedicmath.app.domain.models.CrossProductQuizSession
 import com.vedicmath.app.models.CrossProductQuizItem
-import com.vedicmath.app.models.CrossProductQuizSession
 
 class CrossProductQuizFragment : Fragment() {
 
     private var _binding: FragmentCrossProductQuizBinding? = null
     private val binding get() = _binding!!
 
-    private val session = CrossProductQuizSession()
-    private var currentItem: CrossProductQuizItem? = null
+    private var isAdvancedMode: Boolean = false
+
+    private val standardSession = CrossProductQuizSession()
+    private val advancedSession = AdvancedCrossProductQuizSession()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,56 +43,137 @@ class CrossProductQuizFragment : Fragment() {
         }
 
         binding.btnResetQuiz.setOnClickListener {
-            session.reset()
-            binding.etCrossAnswer.text?.clear()
-            binding.tvQuizFeedback.text = ""
-            updateScoreUi()
-            loadNextQuestion()
-            Toast.makeText(requireContext(), "Quiz reset", Toast.LENGTH_SHORT).show()
+            resetQuiz()
         }
 
         binding.btnBackToCalculator.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        updateScoreUi()
-        loadNextQuestion()
+        binding.advancedModeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            isAdvancedMode = isChecked
+            startNewQuiz(size = 5)
+        }
+
+        isAdvancedMode = false
+        binding.advancedModeSwitch.isChecked = false
+        startNewQuiz(size = 5)
     }
 
-    private fun loadNextQuestion() {
-        currentItem = session.nextRandomItem()
+    private fun startNewQuiz(size: Int) {
+        if (isAdvancedMode) {
+            advancedSession.newSession(size)
+        } else {
+            standardSession.newSession(size)
+        }
+        updateScoreUi()
+        displayCurrentQuestion()
+    }
+
+    private fun displayCurrentQuestion() {
+        val advItem: AdvancedQuizItem? =
+            if (isAdvancedMode) advancedSession.currentItem() else null
+
+        val stdItem: CrossProductQuizItem? =
+            if (!isAdvancedMode) standardSession.currentItem() else null
+
+        when {
+            advItem != null -> {
+                binding.tvQuizType.text = advItem.ruleName
+                binding.tvQuizPrompt.text =
+                    "Find the cross term for ${advItem.question.left} × ${advItem.question.right}"
+                binding.tvQuizExplanationPreview.text = advItem.ruleDescription
+            }
+
+            stdItem != null -> {
+                binding.tvQuizType.text = stdItem.typeLabel
+                binding.tvQuizPrompt.text = stdItem.prompt
+                binding.tvQuizExplanationPreview.text = stdItem.ruleDescription
+            }
+
+            else -> {
+                binding.tvQuizType.text = ""
+                binding.tvQuizPrompt.text = ""
+                binding.tvQuizExplanationPreview.text = ""
+            }
+        }
+
         binding.etCrossAnswer.text?.clear()
         binding.tvQuizFeedback.text = ""
-        binding.tvQuizType.text = currentItem?.typeLabel.orEmpty()
-        binding.tvQuizPrompt.text = currentItem?.prompt.orEmpty()
-        binding.tvQuizExplanationPreview.text = "Solve mentally, then enter only the cross term."
     }
 
     private fun submitAnswer() {
-        val item = currentItem ?: return
-        val answer = binding.etCrossAnswer.text?.toString()?.trim()?.toIntOrNull()
-
-        if (answer == null) {
+        val userAnswer = binding.etCrossAnswer.text?.toString()?.trim()?.toIntOrNull()
+        if (userAnswer == null) {
             binding.etCrossAnswer.error = "Enter a whole-number cross term"
             return
         }
 
         binding.etCrossAnswer.error = null
 
-        val correct = session.recordAnswer(item, answer)
+        val currentAdvancedItem = if (isAdvancedMode) advancedSession.currentItem() else null
+        val currentStandardItem = if (!isAdvancedMode) standardSession.currentItem() else null
+
+        val isCorrect = if (isAdvancedMode) {
+            advancedSession.submitAnswer(userAnswer)
+        } else {
+            standardSession.submitAnswer(userAnswer)
+        }
+
         updateScoreUi()
 
-        binding.tvQuizFeedback.text = if (correct) {
-            "Correct ✅\n${item.explanation}"
+        val feedbackText = if (isAdvancedMode) {
+            val explanation = currentAdvancedItem?.ruleDescription.orEmpty()
+            if (isCorrect) {
+                "Correct ✅\n$explanation"
+            } else {
+                val correctAnswer =
+                    currentAdvancedItem?.let { it.question.left * it.question.right }?.toString().orEmpty()
+                "Not quite.\nCorrect answer: $correctAnswer\n$explanation"
+            }
         } else {
-            "Not quite.\nCorrect cross term: ${item.expectedCrossTerm}\n${item.explanation}"
+            val explanation = currentStandardItem?.ruleDescription.orEmpty()
+            if (isCorrect) {
+                "Correct ✅\n$explanation"
+            } else {
+                val correctAnswer = currentStandardItem?.expectedCrossTerm?.toString().orEmpty()
+                "Not quite.\nCorrect cross term: $correctAnswer\n$explanation"
+            }
+        }
+
+        binding.tvQuizFeedback.text = feedbackText
+    }
+
+    private fun loadNextQuestion() {
+        val finished = if (isAdvancedMode) {
+            advancedSession.isFinished()
+        } else {
+            standardSession.isFinished()
+        }
+
+        if (finished) {
+            Toast.makeText(requireContext(), "Quiz finished", Toast.LENGTH_SHORT).show()
+        } else {
+            displayCurrentQuestion()
         }
     }
 
+    private fun resetQuiz() {
+        startNewQuiz(size = 5)
+        Toast.makeText(requireContext(), "Quiz reset", Toast.LENGTH_SHORT).show()
+    }
+
     private fun updateScoreUi() {
-        val score = session.currentScore()
-        binding.tvQuizScore.text =
-            "Score: ${score.correctAnswers}/${score.totalAsked}   Accuracy: ${score.accuracyPercent}%"
+        if (isAdvancedMode) {
+            val score = advancedSession.score
+            val total = 5
+            val accuracy = if (total == 0) 0 else (score * 100) / total
+            binding.tvQuizScore.text = "Score: $score/$total   Accuracy: $accuracy%"
+        } else {
+            val score = standardSession.currentScore()
+            binding.tvQuizScore.text =
+                "Score: ${score.correctAnswers}/${score.totalAsked}   Accuracy: ${score.accuracyPercent}%"
+        }
     }
 
     override fun onDestroyView() {

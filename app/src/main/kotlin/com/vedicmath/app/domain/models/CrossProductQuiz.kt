@@ -1,19 +1,12 @@
-package com.vedicmath.app.models
+package com.vedicmath.app.domain.models
 
+import com.vedicmath.app.models.CrossProductQuizItem
 import kotlin.random.Random
-
-data class CrossProductQuizItem(
-    val leftNumber: Int,
-    val rightNumber: Int,
-    val expectedCrossTerm: Int,
-    val typeLabel: String,
-    val prompt: String,
-    val explanation: String
-)
 
 object CrossProductQuiz {
 
-    fun createUnitsSum10TensStep1Item(
+    // Primary factory: Units sum to 10, Tens differ by 1
+    fun createUnitsSumToTensStepItem(
         smallerTens: Int,
         smallerUnits: Int
     ): CrossProductQuizItem {
@@ -37,6 +30,8 @@ object CrossProductQuiz {
             explanation = "Because the tens differ by 1 and the units add to 10, the cross term equals the smaller number: $left."
         )
     }
+
+    // If you previously had an overload, drop duplicates and keep only one signature.
 
     fun createUnitsSum5TensStep1Item(
         smallerTens: Int,
@@ -88,16 +83,14 @@ object CrossProductQuiz {
 
     fun createRandomItem(random: Random = Random.Default): CrossProductQuizItem {
         return when (random.nextInt(4)) {
-            0 -> createUnitsSum10TensStep1Item(
+            0 -> createUnitsSumToTensStepItem(
                 smallerTens = random.nextInt(1, 9),
                 smallerUnits = random.nextInt(1, 10)
             )
-
             1 -> createUnitsSum5TensStep1Item(
                 smallerTens = random.nextInt(1, 9),
                 smallerUnits = random.nextInt(0, 6)
             )
-
             2 -> createYaavadunamStyleItem19x91()
             else -> createYaavadunamStyleItem29x91()
         }
