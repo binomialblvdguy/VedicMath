@@ -1,7 +1,5 @@
-package com.vedicmath.app.domain.models
+package com.vedicmath.app.models
 
-import com.vedicmath.app.models.CrossProductQuizItem
-import com.vedicmath.app.models.CrossProductQuizScore
 import kotlin.random.Random
 
 class CrossProductQuizSession(
@@ -17,7 +15,22 @@ class CrossProductQuizSession(
         return CrossProductQuiz.createRandomItem(random)
     }
 
-    fun currentItem(): CrossProductQuizItem? = items.getOrNull(index)
+    fun recordAnswer(item: CrossProductQuizItem, answer: Int): Boolean {
+        val isCorrect = CrossProductQuiz.checkAnswer(item, answer)
+
+        score = if (isCorrect) {
+            score.copy(
+                totalAsked = score.totalAsked + 1,
+                correctAnswers = score.correctAnswers + 1
+            )
+        } else {
+            score.copy(
+                totalAsked = score.totalAsked + 1
+            )
+        }
+
+        return isCorrect
+    }
 
     fun newSession(size: Int = 5) {
         items.clear()
@@ -27,6 +40,8 @@ class CrossProductQuizSession(
             items.add(nextRandomItem())
         }
     }
+
+    fun currentItem(): CrossProductQuizItem? = items.getOrNull(index)
 
     fun submitAnswer(answer: Int): Boolean {
         val item = currentItem() ?: return false
@@ -47,11 +62,11 @@ class CrossProductQuizSession(
         return isCorrect
     }
 
+    fun isFinished(): Boolean = index >= items.size
+
     fun reset() {
         items.clear()
         index = 0
         score = CrossProductQuizScore()
     }
-
-    fun isFinished(): Boolean = index >= items.size
 }

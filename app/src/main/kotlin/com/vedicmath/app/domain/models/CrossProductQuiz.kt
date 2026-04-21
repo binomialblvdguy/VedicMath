@@ -5,7 +5,6 @@ import kotlin.random.Random
 
 object CrossProductQuiz {
 
-    // Primary factory: Units sum to 10, Tens differ by 1
     fun createUnitsSumToTensStepItem(
         smallerTens: Int,
         smallerUnits: Int
@@ -30,8 +29,6 @@ object CrossProductQuiz {
             explanation = "Because the tens differ by 1 and the units add to 10, the cross term equals the smaller number: $left."
         )
     }
-
-    // If you previously had an overload, drop duplicates and keep only one signature.
 
     fun createUnitsSum5TensStep1Item(
         smallerTens: Int,
