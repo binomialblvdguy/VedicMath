@@ -36,8 +36,13 @@ class CrossProductQuizSession(
         items.clear()
         index = 0
         score = CrossProductQuizScore()
+
+        val usedKeys = mutableSetOf<String>()
+
         repeat(size) {
-            items.add(nextRandomItem())
+            val item = generateUniqueItem(usedKeys)
+            items.add(item)
+            usedKeys.add(item.uniqueKey())
         }
     }
 
@@ -68,5 +73,19 @@ class CrossProductQuizSession(
         items.clear()
         index = 0
         score = CrossProductQuizScore()
+    }
+
+    private fun generateUniqueItem(usedKeys: Set<String>): CrossProductQuizItem {
+        repeat(50) {
+            val candidate = nextRandomItem()
+            if (candidate.uniqueKey() !in usedKeys) {
+                return candidate
+            }
+        }
+        return nextRandomItem()
+    }
+
+    private fun CrossProductQuizItem.uniqueKey(): String {
+        return "$leftNumber|$rightNumber|$expectedCrossTerm|$typeLabel"
     }
 }

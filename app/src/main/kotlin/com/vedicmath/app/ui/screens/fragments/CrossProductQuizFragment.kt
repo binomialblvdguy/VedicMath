@@ -81,14 +81,16 @@ class CrossProductQuizFragment : Fragment() {
             advItem != null -> {
                 binding.tvQuizType.text = advItem.ruleName
                 binding.tvQuizPrompt.text =
-                    "Find the cross term for ${advItem.question.left} × ${advItem.question.right}"
-                binding.tvQuizExplanationPreview.text = advItem.ruleDescription
+                    "Find only the cross term for ${advItem.question.left} × ${advItem.question.right}"
+                binding.tvQuizExplanationPreview.text =
+                    "Use the rule mentally, then enter only the cross term."
             }
 
             stdItem != null -> {
                 binding.tvQuizType.text = stdItem.typeLabel
                 binding.tvQuizPrompt.text = stdItem.prompt
-                binding.tvQuizExplanationPreview.text = stdItem.ruleDescription
+                binding.tvQuizExplanationPreview.text =
+                    "Use the rule mentally, then enter only the cross term."
             }
 
             else -> {

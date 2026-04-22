@@ -99,6 +99,11 @@ class CrossProductQuizTest {
         val allowedLabels = setOf(
             "Units Sum 10 / Tens Differ by 1",
             "Units Sum 5 / Tens Differ by 1",
+            "Units Sum 8 / Tens Differ by 2",
+            "Units Sum 4 / Tens Differ by 1",
+            "Units Sum 6 / Tens Differ by 1",
+            "Units Sum 9 / Tens Differ by 1",
+            "Units Sum 11 / Tens Differ by 1",
             "Yaavadunam-Style Observation"
         )
 

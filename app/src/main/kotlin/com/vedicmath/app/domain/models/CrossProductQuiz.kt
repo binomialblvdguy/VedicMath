@@ -5,27 +5,56 @@ import kotlin.random.Random
 
 object CrossProductQuiz {
 
-    fun createUnitsSumToTensStepItem(
+    private fun createFixedUnitSumTensDiffItem(
+        unitSum: Int,
+        tensDiff: Int,
         smallerTens: Int,
-        smallerUnits: Int
+        smallerUnits: Int,
+        typeLabel: String,
+        explanation: String
     ): CrossProductQuizItem {
-        require(smallerTens in 1..8) {
-            "smallerTens must be between 1 and 8"
+        require(tensDiff in 1..8) {
+            "tensDiff must be between 1 and 8"
         }
-        require(smallerUnits in 1..9) {
-            "smallerUnits must be between 1 and 9"
+
+        require(smallerTens in 1..(9 - tensDiff)) {
+            "smallerTens must be between 1 and ${9 - tensDiff}"
+        }
+
+        val minUnits = maxOf(0, unitSum - 9)
+        val maxUnits = minOf(9, unitSum)
+
+        require(smallerUnits in minUnits..maxUnits) {
+            "smallerUnits must be between $minUnits and $maxUnits"
         }
 
         val left = smallerTens * 10 + smallerUnits
-        val right = (smallerTens + 1) * 10 + (10 - smallerUnits)
-        val expectedCross = left
+        val rightUnits = unitSum - smallerUnits
+        val right = (smallerTens + tensDiff) * 10 + rightUnits
+        val expectedCross = unitSum * smallerTens + tensDiff * smallerUnits
 
         return CrossProductQuizItem(
             leftNumber = left,
             rightNumber = right,
             expectedCrossTerm = expectedCross,
-            typeLabel = "Units Sum 10 / Tens Differ by 1",
+            typeLabel = typeLabel,
             prompt = "Find only the cross term for $left × $right",
+            explanation = explanation
+        )
+    }
+
+    fun createUnitsSumToTensStepItem(
+        smallerTens: Int,
+        smallerUnits: Int
+    ): CrossProductQuizItem {
+        val left = smallerTens * 10 + smallerUnits
+
+        return createFixedUnitSumTensDiffItem(
+            unitSum = 10,
+            tensDiff = 1,
+            smallerTens = smallerTens,
+            smallerUnits = smallerUnits,
+            typeLabel = "Units Sum 10 / Tens Differ by 1",
             explanation = "Because the tens differ by 1 and the units add to 10, the cross term equals the smaller number: $left."
         )
     }
@@ -34,25 +63,80 @@ object CrossProductQuiz {
         smallerTens: Int,
         smallerUnits: Int
     ): CrossProductQuizItem {
-        require(smallerTens in 1..8) {
-            "smallerTens must be between 1 and 8"
-        }
-        require(smallerUnits in 0..5) {
-            "smallerUnits must be between 0 and 5"
-        }
-
-        val left = smallerTens * 10 + smallerUnits
-        val right = (smallerTens + 1) * 10 + (5 - smallerUnits)
         val tensHalf = (smallerTens * 10) / 2
-        val expectedCross = tensHalf + smallerUnits
+        val expectedCross = 5 * smallerTens + smallerUnits
 
-        return CrossProductQuizItem(
-            leftNumber = left,
-            rightNumber = right,
-            expectedCrossTerm = expectedCross,
+        return createFixedUnitSumTensDiffItem(
+            unitSum = 5,
+            tensDiff = 1,
+            smallerTens = smallerTens,
+            smallerUnits = smallerUnits,
             typeLabel = "Units Sum 5 / Tens Differ by 1",
-            prompt = "Find only the cross term for $left × $right",
             explanation = "Because the tens differ by 1 and the units add to 5, take half of ${smallerTens * 10} and add $smallerUnits: $tensHalf + $smallerUnits = $expectedCross."
+        )
+    }
+
+    fun createUnitsSum4TensStep1Item(
+        smallerTens: Int,
+        smallerUnits: Int
+    ): CrossProductQuizItem {
+        val expectedCross = 4 * smallerTens + smallerUnits
+
+        return createFixedUnitSumTensDiffItem(
+            unitSum = 4,
+            tensDiff = 1,
+            smallerTens = smallerTens,
+            smallerUnits = smallerUnits,
+            typeLabel = "Units Sum 4 / Tens Differ by 1",
+            explanation = "Because the tens differ by 1 and the units add to 4, the cross term is 4 × $smallerTens + $smallerUnits = $expectedCross."
+        )
+    }
+
+    fun createUnitsSum6TensStep1Item(
+        smallerTens: Int,
+        smallerUnits: Int
+    ): CrossProductQuizItem {
+        val expectedCross = 6 * smallerTens + smallerUnits
+
+        return createFixedUnitSumTensDiffItem(
+            unitSum = 6,
+            tensDiff = 1,
+            smallerTens = smallerTens,
+            smallerUnits = smallerUnits,
+            typeLabel = "Units Sum 6 / Tens Differ by 1",
+            explanation = "Because the tens differ by 1 and the units add to 6, the cross term is 6 × $smallerTens + $smallerUnits = $expectedCross."
+        )
+    }
+
+    fun createUnitsSum9TensStep1Item(
+        smallerTens: Int,
+        smallerUnits: Int
+    ): CrossProductQuizItem {
+        val expectedCross = 9 * smallerTens + smallerUnits
+
+        return createFixedUnitSumTensDiffItem(
+            unitSum = 9,
+            tensDiff = 1,
+            smallerTens = smallerTens,
+            smallerUnits = smallerUnits,
+            typeLabel = "Units Sum 9 / Tens Differ by 1",
+            explanation = "Because the tens differ by 1 and the units add to 9, the cross term is 9 × $smallerTens + $smallerUnits = $expectedCross."
+        )
+    }
+
+    fun createUnitsSum11TensStep1Item(
+        smallerTens: Int,
+        smallerUnits: Int
+    ): CrossProductQuizItem {
+        val expectedCross = 11 * smallerTens + smallerUnits
+
+        return createFixedUnitSumTensDiffItem(
+            unitSum = 11,
+            tensDiff = 1,
+            smallerTens = smallerTens,
+            smallerUnits = smallerUnits,
+            typeLabel = "Units Sum 11 / Tens Differ by 1",
+            explanation = "Because the tens differ by 1 and the units add to 11, the cross term is 11 × $smallerTens + $smallerUnits = $expectedCross."
         )
     }
 
@@ -60,23 +144,14 @@ object CrossProductQuiz {
         smallerTens: Int,
         smallerUnits: Int
     ): CrossProductQuizItem {
-        require(smallerTens in 1..7) {
-            "smallerTens must be between 1 and 7"
-        }
-        require(smallerUnits in 0..8) {
-            "smallerUnits must be between 0 and 8"
-        }
+        val expectedCross = 8 * smallerTens + 2 * smallerUnits
 
-        val left = smallerTens * 10 + smallerUnits
-        val right = (smallerTens + 2) * 10 + (8 - smallerUnits)
-        val expectedCross = (8 * smallerTens) + (2 * smallerUnits)
-
-        return CrossProductQuizItem(
-            leftNumber = left,
-            rightNumber = right,
-            expectedCrossTerm = expectedCross,
+        return createFixedUnitSumTensDiffItem(
+            unitSum = 8,
+            tensDiff = 2,
+            smallerTens = smallerTens,
+            smallerUnits = smallerUnits,
             typeLabel = "Units Sum 8 / Tens Differ by 2",
-            prompt = "Find only the cross term for $left × $right",
             explanation = "Because the tens differ by 2 and the units add to 8, the cross term is 8 × $smallerTens + 2 × $smallerUnits = $expectedCross."
         )
     }
@@ -104,7 +179,7 @@ object CrossProductQuiz {
     }
 
     fun createRandomItem(random: Random = Random.Default): CrossProductQuizItem {
-        return when (random.nextInt(5)) {
+        return when (random.nextInt(9)) {
             0 -> createUnitsSumToTensStepItem(
                 smallerTens = random.nextInt(1, 9),
                 smallerUnits = random.nextInt(1, 10)
@@ -117,7 +192,23 @@ object CrossProductQuiz {
                 smallerTens = random.nextInt(1, 8),
                 smallerUnits = random.nextInt(0, 9)
             )
-            3 -> createYaavadunamStyleItem19x91()
+            3 -> createUnitsSum4TensStep1Item(
+                smallerTens = random.nextInt(1, 9),
+                smallerUnits = random.nextInt(0, 5)
+            )
+            4 -> createUnitsSum6TensStep1Item(
+                smallerTens = random.nextInt(1, 9),
+                smallerUnits = random.nextInt(0, 7)
+            )
+            5 -> createUnitsSum9TensStep1Item(
+                smallerTens = random.nextInt(1, 9),
+                smallerUnits = random.nextInt(0, 10)
+            )
+            6 -> createUnitsSum11TensStep1Item(
+                smallerTens = random.nextInt(1, 9),
+                smallerUnits = random.nextInt(2, 10)
+            )
+            7 -> createYaavadunamStyleItem19x91()
             else -> createYaavadunamStyleItem29x91()
         }
     }
