@@ -56,6 +56,31 @@ object CrossProductQuiz {
         )
     }
 
+    fun createUnitsSum8TensDiff2Item(
+        smallerTens: Int,
+        smallerUnits: Int
+    ): CrossProductQuizItem {
+        require(smallerTens in 1..7) {
+            "smallerTens must be between 1 and 7"
+        }
+        require(smallerUnits in 0..8) {
+            "smallerUnits must be between 0 and 8"
+        }
+
+        val left = smallerTens * 10 + smallerUnits
+        val right = (smallerTens + 2) * 10 + (8 - smallerUnits)
+        val expectedCross = (8 * smallerTens) + (2 * smallerUnits)
+
+        return CrossProductQuizItem(
+            leftNumber = left,
+            rightNumber = right,
+            expectedCrossTerm = expectedCross,
+            typeLabel = "Units Sum 8 / Tens Differ by 2",
+            prompt = "Find only the cross term for $left × $right",
+            explanation = "Because the tens differ by 2 and the units add to 8, the cross term is 8 × $smallerTens + 2 × $smallerUnits = $expectedCross."
+        )
+    }
+
     fun createYaavadunamStyleItem19x91(): CrossProductQuizItem {
         return CrossProductQuizItem(
             leftNumber = 19,
@@ -79,7 +104,7 @@ object CrossProductQuiz {
     }
 
     fun createRandomItem(random: Random = Random.Default): CrossProductQuizItem {
-        return when (random.nextInt(4)) {
+        return when (random.nextInt(5)) {
             0 -> createUnitsSumToTensStepItem(
                 smallerTens = random.nextInt(1, 9),
                 smallerUnits = random.nextInt(1, 10)
@@ -88,7 +113,11 @@ object CrossProductQuiz {
                 smallerTens = random.nextInt(1, 9),
                 smallerUnits = random.nextInt(0, 6)
             )
-            2 -> createYaavadunamStyleItem19x91()
+            2 -> createUnitsSum8TensDiff2Item(
+                smallerTens = random.nextInt(1, 8),
+                smallerUnits = random.nextInt(0, 9)
+            )
+            3 -> createYaavadunamStyleItem19x91()
             else -> createYaavadunamStyleItem29x91()
         }
     }
