@@ -104,6 +104,8 @@ class CrossProductQuizTest {
             "Units Sum 6 / Tens Differ by 1",
             "Units Sum 9 / Tens Differ by 1",
             "Units Sum 11 / Tens Differ by 1",
+            "Digits in 1:2 Ratio / Cross Product = Right Vertical",
+            "Digits in 2:1 Ratio / Cross Product = Left Vertical",
             "Yaavadunam-Style Observation"
         )
 

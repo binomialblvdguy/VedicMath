@@ -156,6 +156,66 @@ object CrossProductQuiz {
         )
     }
 
+    fun createDigits1To2RatioRightVerticalItem(
+        leftBase: Int,
+        rightBase: Int
+    ): CrossProductQuizItem {
+        require(leftBase in 1..4) {
+            "leftBase must be between 1 and 4"
+        }
+        require(rightBase in 1..4) {
+            "rightBase must be between 1 and 4"
+        }
+
+        val leftTens = leftBase
+        val leftUnits = leftBase * 2
+        val rightTens = rightBase
+        val rightUnits = rightBase * 2
+
+        val left = leftTens * 10 + leftUnits
+        val right = rightTens * 10 + rightUnits
+        val expectedCross = leftUnits * rightUnits
+
+        return CrossProductQuizItem(
+            leftNumber = left,
+            rightNumber = right,
+            expectedCrossTerm = expectedCross,
+            typeLabel = "Digits in 1:2 Ratio / Cross Product = Right Vertical",
+            prompt = "Find only the cross term for $left × $right",
+            explanation = "Because both numbers have digits in a 1:2 ratio, the cross product equals the right vertical product: $leftUnits × $rightUnits = $expectedCross."
+        )
+    }
+
+    fun createDigits2To1RatioLeftVerticalItem(
+        leftBase: Int,
+        rightBase: Int
+    ): CrossProductQuizItem {
+        require(leftBase in 1..4) {
+            "leftBase must be between 1 and 4"
+        }
+        require(rightBase in 1..4) {
+            "rightBase must be between 1 and 4"
+        }
+
+        val leftTens = leftBase * 2
+        val leftUnits = leftBase
+        val rightTens = rightBase * 2
+        val rightUnits = rightBase
+
+        val left = leftTens * 10 + leftUnits
+        val right = rightTens * 10 + rightUnits
+        val expectedCross = leftTens * rightTens
+
+        return CrossProductQuizItem(
+            leftNumber = left,
+            rightNumber = right,
+            expectedCrossTerm = expectedCross,
+            typeLabel = "Digits in 2:1 Ratio / Cross Product = Left Vertical",
+            prompt = "Find only the cross term for $left × $right",
+            explanation = "Because both numbers have digits in a 2:1 ratio, the cross product equals the left vertical product: $leftTens × $rightTens = $expectedCross."
+        )
+    }
+
     fun createYaavadunamStyleItem19x91(): CrossProductQuizItem {
         return CrossProductQuizItem(
             leftNumber = 19,
@@ -179,7 +239,7 @@ object CrossProductQuiz {
     }
 
     fun createRandomItem(random: Random = Random.Default): CrossProductQuizItem {
-        return when (random.nextInt(9)) {
+        return when (random.nextInt(11)) {
             0 -> createUnitsSumToTensStepItem(
                 smallerTens = random.nextInt(1, 9),
                 smallerUnits = random.nextInt(1, 10)
@@ -208,7 +268,15 @@ object CrossProductQuiz {
                 smallerTens = random.nextInt(1, 9),
                 smallerUnits = random.nextInt(2, 10)
             )
-            7 -> createYaavadunamStyleItem19x91()
+            7 -> createDigits1To2RatioRightVerticalItem(
+                leftBase = random.nextInt(1, 5),
+                rightBase = random.nextInt(1, 5)
+            )
+            8 -> createDigits2To1RatioLeftVerticalItem(
+                leftBase = random.nextInt(1, 5),
+                rightBase = random.nextInt(1, 5)
+            )
+            9 -> createYaavadunamStyleItem19x91()
             else -> createYaavadunamStyleItem29x91()
         }
     }
