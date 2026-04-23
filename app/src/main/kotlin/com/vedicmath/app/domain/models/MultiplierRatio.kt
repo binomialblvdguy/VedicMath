@@ -5,4 +5,10 @@ data class MultiplierRatio(
     val primaryRatio: String,
     val secondaryRatio: String,
     val description: String
-)
+) {
+    val ratioPart: String
+        get() = primaryRatio
+
+    val multiplicationPart: String
+        get() = secondaryRatio
+}

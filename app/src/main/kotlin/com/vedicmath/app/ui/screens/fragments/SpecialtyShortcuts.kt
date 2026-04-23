@@ -70,14 +70,30 @@ object SpecialtyShortcuts {
 
     /**
      * MULTIPLICATION: MANUAL RATIO (1:2 or 1:3)
+     * Split into 2 parts:
+     * 1) Ratio observation
+     * 2) Multiplication from the smaller square
      */
     fun calculateManualRatio(n1: Int, n2: Int, factor: Int): List<VedicSolutionStep> {
-        val smaller = if (n1 < n2) n1 else n2
+        val smaller = minOf(n1, n2)
+        val larger = maxOf(n1, n2)
         val sq = smaller * smaller
+        val scaled = sq * factor
+
         return listOf(
             VedicSolutionStep("Sutra", "Anurupyena (Ratio 1:$factor)"),
-            VedicSolutionStep("Step 1", "Square base: $smaller² = $sq"),
-            VedicSolutionStep("Step 2", "Multiply: $sq × $factor = ${sq * factor}"),
+            VedicSolutionStep(
+                "Part 1: Ratio",
+                "See $larger as $smaller × $factor, so $n1 × $n2 becomes $smaller × $smaller × $factor."
+            ),
+            VedicSolutionStep(
+                "Part 2: Multiply",
+                "Square the smaller number: $smaller² = $sq"
+            ),
+            VedicSolutionStep(
+                "Scale",
+                "Now multiply by the ratio factor: $sq × $factor = $scaled"
+            ),
             VedicSolutionStep("Final", "Result: ${n1 * n2}")
         )
     }
@@ -93,27 +109,33 @@ object SpecialtyShortcuts {
             // 1. ENDS IN 5: Ekadhikena
             last == 5 -> {
                 val lhs = a * (a + 1)
-                listOf(VedicSolutionStep("Sutra", "Ekadhikena Purvena"),
-                    VedicSolutionStep("LHS", "$a × (${a+1}) = $lhs"),
-                    VedicSolutionStep("Final", "$lhs" + "25"))
+                listOf(
+                    VedicSolutionStep("Sutra", "Ekadhikena Purvena"),
+                    VedicSolutionStep("LHS", "$a × (${a + 1}) = $lhs"),
+                    VedicSolutionStep("Final", "$lhs" + "25")
+                )
             }
 
             // 2. NEAR 100 (81-99): Yavadunam Base 100
             n in 81..99 -> {
                 val def = 100 - n
-                listOf(VedicSolutionStep("Sutra", "Yavadunam (Base 100)"),
+                listOf(
+                    VedicSolutionStep("Sutra", "Yavadunam (Base 100)"),
                     VedicSolutionStep("LHS", "$n - $def = ${n - def}"),
                     VedicSolutionStep("RHS", "$def² = ${def * def}"),
-                    VedicSolutionStep("Final", "${n * n}"))
+                    VedicSolutionStep("Final", "${n * n}")
+                )
             }
 
             // 3. UNIT 1: a² | 2a | 1
             last == 1 -> {
                 val lhs = a * a
                 val mid = 2 * a
-                listOf(VedicSolutionStep("Sutra", "One-Line Unit 1: a² | 2a | 1"),
+                listOf(
+                    VedicSolutionStep("Sutra", "One-Line Unit 1: a² | 2a | 1"),
                     VedicSolutionStep("Steps", "$lhs | $mid | 1"),
-                    VedicSolutionStep("Final", "${n * n}"))
+                    VedicSolutionStep("Final", "${n * n}")
+                )
             }
 
             // 4. UNIT 4: a(a+1) | -(2a-1) | 6
@@ -121,20 +143,24 @@ object SpecialtyShortcuts {
                 val oneMore = a * (a + 1)
                 val shift = (2 * a) - 1
                 val baseShift = (oneMore * 10) - shift
-                listOf(VedicSolutionStep("Sutra", "One-Line Unit 4: a(a+1) - (2a-1) | 6"),
-                    VedicSolutionStep("Base", "$a × ${a+1} = $oneMore (as ${oneMore}0)"),
+                listOf(
+                    VedicSolutionStep("Sutra", "One-Line Unit 4: a(a+1) - (2a-1) | 6"),
+                    VedicSolutionStep("Base", "$a × ${a + 1} = $oneMore (as ${oneMore}0)"),
                     VedicSolutionStep("Shift", "- (2 × $a - 1) = -$shift"),
-                    VedicSolutionStep("Final", "$baseShift | 6 = ${n * n}"))
+                    VedicSolutionStep("Final", "$baseShift | 6 = ${n * n}")
+                )
             }
 
             // 5. UNIT 6: a(a+1) | (2a+1) | 6
             last == 6 -> {
                 val lhs = a * (a + 1)
                 val mid = (2 * a) + 1
-                listOf(VedicSolutionStep("Sutra", "One-Line Unit 6: a(a+1) | (2a+1) | 6"),
-                    VedicSolutionStep("LHS", "$a × ${a+1} = $lhs"),
+                listOf(
+                    VedicSolutionStep("Sutra", "One-Line Unit 6: a(a+1) | (2a+1) | 6"),
+                    VedicSolutionStep("LHS", "$a × ${a + 1} = $lhs"),
                     VedicSolutionStep("Mid", "(2 × $a) + 1 = $mid"),
-                    VedicSolutionStep("Final", "$lhs | $mid | 6 = ${n * n}"))
+                    VedicSolutionStep("Final", "$lhs | $mid | 6 = ${n * n}")
+                )
             }
 
             // 6. UNIT 9: (a+1)² | -2(a+1) | 1
@@ -143,10 +169,12 @@ object SpecialtyShortcuts {
                 val lhs = next * next
                 val shift = 2 * next
                 val baseShift = (lhs * 10) - shift
-                listOf(VedicSolutionStep("Sutra", "One-Line Unit 9: (a+1)² - 2(a+1) | 1"),
+                listOf(
+                    VedicSolutionStep("Sutra", "One-Line Unit 9: (a+1)² - 2(a+1) | 1"),
                     VedicSolutionStep("Base", "$next² = $lhs (as ${lhs}0)"),
                     VedicSolutionStep("Shift", "- (2 × $next) = -$shift"),
-                    VedicSolutionStep("Final", "$baseShift | 1 = ${n * n}"))
+                    VedicSolutionStep("Final", "$baseShift | 1 = ${n * n}")
+                )
             }
 
             // 7. FALLBACK: Dwandwa (Duplex)
@@ -154,9 +182,11 @@ object SpecialtyShortcuts {
                 val d1 = a * a
                 val d12 = 2 * a * last
                 val d2 = last * last
-                listOf(VedicSolutionStep("Sutra", "Dwandwa (Universal)"),
+                listOf(
+                    VedicSolutionStep("Sutra", "Dwandwa (Universal)"),
                     VedicSolutionStep("Steps", "$d1 | $d12 | $d2"),
-                    VedicSolutionStep("Final", "${n * n}"))
+                    VedicSolutionStep("Final", "${n * n}")
+                )
             }
         }
     }
@@ -174,11 +204,14 @@ object SpecialtyShortcuts {
         return listOf(
             VedicSolutionStep("Sutra", "Anurupyena (Ratio a:b)"),
             VedicSolutionStep("Row", "$r1 | $r2 | $r3 | $r4"),
-            VedicSolutionStep("Double", "Add: | ${r2*2} | ${r3*2} |"),
+            VedicSolutionStep("Double", "Add: | ${r2 * 2} | ${r3 * 2} |"),
             VedicSolutionStep("Final", "${n * n * n}")
         )
     }
 
     fun calculateUniversal(n1: Int, n2: Int): List<VedicSolutionStep> =
-        listOf(VedicSolutionStep("Sutra", "Urdhva Tiryak"), VedicSolutionStep("Final", "${n1 * n2}"))
+        listOf(
+            VedicSolutionStep("Sutra", "Urdhva Tiryak"),
+            VedicSolutionStep("Final", "${n1 * n2}")
+        )
 }
