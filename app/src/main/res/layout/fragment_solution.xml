@@ -21,17 +21,45 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvMethodLabel"
+        android:id="@+id/tvObservationLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Method Used"
+        android:text="Observation / Pattern"
         android:textColor="#BBBBBB"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSolutionTitle" />
+
+    <TextView
+        android:id="@+id/tvSolutionObservation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_neon_cyan"
+        android:padding="16dp"
+        android:textColor="#FFEB3B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvObservationLabel"
+        tools:text="Auto detected pattern: Same Units" />
+
+    <TextView
+        android:id="@+id/tvMethodLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Execution Method"
+        android:textColor="#BBBBBB"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSolutionObservation" />
 
     <TextView
         android:id="@+id/tvSolutionMethod"

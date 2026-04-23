@@ -91,11 +91,15 @@ class VedicCalculatorFragment : Fragment() {
                         CalcMode.CUBE -> VedicMath.solveCube(n1, selectedMethod)
                     }
 
+                    val observation = buildObservationText(calc.methodName)
+                    val execution = calc.methodName
+
                     binding.tvResult.visibility = View.VISIBLE
-                    binding.tvResult.text = "Method: ${calc.methodName}\nResult: ${calc.result}"
+                    binding.tvResult.text = "Execution: $execution\nResult: ${calc.result}"
 
                     val solutionFragment = SolutionFragment.newInstance(
-                        method = calc.methodName,
+                        observation = observation,
+                        execution = execution,
                         result = calc.result,
                         steps = ArrayList(calc.steps)
                     )
@@ -339,6 +343,18 @@ class VedicCalculatorFragment : Fragment() {
             .setMessage(message)
             .setPositiveButton("OK", null)
             .show()
+    }
+
+    private fun buildObservationText(executionMethodName: String): String {
+        return when (selectedMethod) {
+            MethodChoice.AUTO -> when (currentMode) {
+                CalcMode.MULTIPLY -> "Auto detected pattern: $executionMethodName"
+                CalcMode.SQUARE -> "Auto detected square pattern: $executionMethodName"
+                CalcMode.CUBE -> "Auto detected cube pattern: $executionMethodName"
+            }
+
+            else -> "User selected: ${selectedMethod.label}"
+        }
     }
 
     private fun getN1(): Int? = parseInput(binding.etInputOne.text?.toString())

@@ -26,11 +26,15 @@ class SolutionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val args = arguments
-        val method = args?.getString(ARG_METHOD).orEmpty()
+        val execution = args?.getString(ARG_EXECUTION).orEmpty()
+            .ifEmpty { args?.getString(ARG_METHOD_LEGACY).orEmpty() }
+        val observation = args?.getString(ARG_OBSERVATION).orEmpty()
+            .ifEmpty { execution }
         val result = args?.getString(ARG_RESULT).orEmpty()
         val steps = args?.getStringArrayList(ARG_STEPS).orEmpty()
 
-        binding.tvSolutionMethod.text = method
+        binding.tvSolutionObservation.text = observation
+        binding.tvSolutionMethod.text = execution
         binding.tvSolutionResult.text = result
 
         binding.recyclerSolutionSteps.apply {
@@ -49,9 +53,25 @@ class SolutionFragment : Fragment() {
     }
 
     companion object {
-        private const val ARG_METHOD = "arg_method"
+        private const val ARG_OBSERVATION = "arg_observation"
+        private const val ARG_EXECUTION = "arg_execution"
+        private const val ARG_METHOD_LEGACY = "arg_method"
         private const val ARG_RESULT = "arg_result"
         private const val ARG_STEPS = "arg_steps"
+
+        fun newInstance(
+            observation: String,
+            execution: String,
+            result: String,
+            steps: ArrayList<String>
+        ): SolutionFragment = SolutionFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_OBSERVATION, observation)
+                putString(ARG_EXECUTION, execution)
+                putString(ARG_RESULT, result)
+                putStringArrayList(ARG_STEPS, steps)
+            }
+        }
 
         fun newInstance(
             method: String,
@@ -59,7 +79,7 @@ class SolutionFragment : Fragment() {
             steps: ArrayList<String>
         ): SolutionFragment = SolutionFragment().apply {
             arguments = Bundle().apply {
-                putString(ARG_METHOD, method)
+                putString(ARG_METHOD_LEGACY, method)
                 putString(ARG_RESULT, result)
                 putStringArrayList(ARG_STEPS, steps)
             }
