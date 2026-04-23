@@ -67,7 +67,7 @@ private fun buildCrossProductExplanation(
     bUnits: Int,
     crossRaw: Int
 ): String {
-    return crossProductShortcutExplanation(
+    return crossProductQuizDrillExplanation(
         aTens = aTens,
         aUnits = aUnits,
         bTens = bTens,
@@ -76,7 +76,7 @@ private fun buildCrossProductExplanation(
     ) ?: "($aTens × $bUnits) + ($aUnits × $bTens) = $crossRaw"
 }
 
-private fun crossProductShortcutExplanation(
+private fun crossProductQuizDrillExplanation(
     aTens: Int,
     aUnits: Int,
     bTens: Int,
@@ -84,11 +84,11 @@ private fun crossProductShortcutExplanation(
     crossRaw: Int
 ): String? {
     if (aUnits == aTens * 2 && bUnits == bTens * 2) {
-        return "right-vertical shortcut: $aUnits × $bUnits = $crossRaw"
+        return "Cross Product Quiz Drill (digits in 1:2 ratio): $aUnits × $bUnits = $crossRaw"
     }
 
     if (aTens == aUnits * 2 && bTens == bUnits * 2) {
-        return "left-vertical shortcut: $aTens × $bTens = $crossRaw"
+        return "Cross Product Quiz Drill (digits in 2:1 ratio): $aTens × $bTens = $crossRaw"
     }
 
     val first = TwoDigitParts(aTens, aUnits)
@@ -107,19 +107,35 @@ private fun crossProductShortcutExplanation(
 
     return when {
         tensDiff == 1 && unitSum == 10 ->
-            "shortcut (units sum 10, tens differ by 1): ${smaller.number} = $crossRaw"
+            "Cross Product Quiz Drill (units sum 10, tens differ by 1): ${smaller.number} = $crossRaw"
 
         tensDiff == 2 && unitSum == 10 ->
-            "shortcut (units sum 10, tens differ by 2): ${smaller.number} + ${smaller.units} = $crossRaw"
+            "Cross Product Quiz Drill (units sum 10, tens differ by 2): ${smaller.number} + ${smaller.units} = $crossRaw"
 
-        tensDiff == 1 && unitSum == 5 ->
-            "shortcut (units sum 5, tens differ by 1): half of ${smaller.tens * 10} + ${smaller.units} = $crossRaw"
+        tensDiff == 1 && unitSum == 4 ->
+            "Cross Product Quiz Drill (units sum 4, tens differ by 1): 4 × ${smaller.tens} + ${smaller.units} = $crossRaw"
 
-        tensDiff == 1 && unitSum in setOf(4, 6, 9, 11) ->
-            "shortcut (units sum $unitSum, tens differ by 1): $unitSum × ${smaller.tens} + ${smaller.units} = $crossRaw"
+        tensDiff == 1 && unitSum == 5 -> {
+            val halfBase = (smaller.tens * 10) / 2
+            "Cross Product Quiz Drill (units sum 5, tens differ by 1): half of ${smaller.tens * 10} + ${smaller.units} = $halfBase + ${smaller.units} = $crossRaw"
+        }
+
+        tensDiff == 2 && unitSum == 5 -> {
+            val basePart = 5 * smaller.tens
+            "Cross Product Quiz Drill (units sum 5, tens differ by 2): $basePart + ${smaller.units} + ${smaller.units} = $crossRaw"
+        }
+
+        tensDiff == 1 && unitSum == 6 ->
+            "Cross Product Quiz Drill (units sum 6, tens differ by 1): 6 × ${smaller.tens} + ${smaller.units} = $crossRaw"
 
         tensDiff == 2 && unitSum == 8 ->
-            "shortcut (units sum 8, tens differ by 2): 8 × ${smaller.tens} + 2 × ${smaller.units} = $crossRaw"
+            "Cross Product Quiz Drill (units sum 8, tens differ by 2): 8 × ${smaller.tens} + 2 × ${smaller.units} = $crossRaw"
+
+        tensDiff == 1 && unitSum == 9 ->
+            "Cross Product Quiz Drill (units sum 9, tens differ by 1): 9 × ${smaller.tens} + ${smaller.units} = $crossRaw"
+
+        tensDiff == 1 && unitSum == 11 ->
+            "Cross Product Quiz Drill (units sum 11, tens differ by 1): 11 × ${smaller.tens} + ${smaller.units} = $crossRaw"
 
         else -> null
     }
