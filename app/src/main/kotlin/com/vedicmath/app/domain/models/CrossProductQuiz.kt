@@ -140,6 +140,24 @@ object CrossProductQuiz {
         )
     }
 
+    fun createUnitsSum15TensStep1Item(
+        smallerTens: Int,
+        smallerUnits: Int
+    ): CrossProductQuizItem {
+        val left = smallerTens * 10 + smallerUnits
+        val halfBase = (smallerTens * 10) / 2
+        val expectedCross = 15 * smallerTens + smallerUnits
+
+        return createFixedUnitSumTensDiffItem(
+            unitSum = 15,
+            tensDiff = 1,
+            smallerTens = smallerTens,
+            smallerUnits = smallerUnits,
+            typeLabel = "Units Sum 15 / Tens Differ by 1",
+            explanation = "Because the tens differ by 1 and the units add to 15, the cross term equals the smaller number plus half of its tens-base: $left + $halfBase = $expectedCross."
+        )
+    }
+
     fun createUnitsSum8TensDiff2Item(
         smallerTens: Int,
         smallerUnits: Int
@@ -239,7 +257,7 @@ object CrossProductQuiz {
     }
 
     fun createRandomItem(random: Random = Random.Default): CrossProductQuizItem {
-        return when (random.nextInt(11)) {
+        return when (random.nextInt(12)) {
             0 -> createUnitsSumToTensStepItem(
                 smallerTens = random.nextInt(1, 9),
                 smallerUnits = random.nextInt(1, 10)
@@ -268,15 +286,19 @@ object CrossProductQuiz {
                 smallerTens = random.nextInt(1, 9),
                 smallerUnits = random.nextInt(2, 10)
             )
-            7 -> createDigits1To2RatioRightVerticalItem(
+            7 -> createUnitsSum15TensStep1Item(
+                smallerTens = random.nextInt(1, 9),
+                smallerUnits = random.nextInt(6, 10)
+            )
+            8 -> createDigits1To2RatioRightVerticalItem(
                 leftBase = random.nextInt(1, 5),
                 rightBase = random.nextInt(1, 5)
             )
-            8 -> createDigits2To1RatioLeftVerticalItem(
+            9 -> createDigits2To1RatioLeftVerticalItem(
                 leftBase = random.nextInt(1, 5),
                 rightBase = random.nextInt(1, 5)
             )
-            9 -> createYaavadunamStyleItem19x91()
+            10 -> createYaavadunamStyleItem19x91()
             else -> createYaavadunamStyleItem29x91()
         }
     }

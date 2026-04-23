@@ -59,6 +59,19 @@ class CrossProductQuizTest {
     }
 
     @Test
+    fun createUnitsSum15TensStep1Item_buildsExpectedExample_58x67() {
+        val item = CrossProductQuiz.createUnitsSum15TensStep1Item(
+            smallerTens = 5,
+            smallerUnits = 8
+        )
+
+        assertEquals(58, item.leftNumber)
+        assertEquals(67, item.rightNumber)
+        assertEquals(83, item.expectedCrossTerm)
+        assertEquals("Units Sum 15 / Tens Differ by 1", item.typeLabel)
+    }
+
+    @Test
     fun createYaavadunamStyleItem19x91_buildsExpectedExample() {
         val item = CrossProductQuiz.createYaavadunamStyleItem19x91()
 
@@ -104,6 +117,7 @@ class CrossProductQuizTest {
             "Units Sum 6 / Tens Differ by 1",
             "Units Sum 9 / Tens Differ by 1",
             "Units Sum 11 / Tens Differ by 1",
+            "Units Sum 15 / Tens Differ by 1",
             "Digits in 1:2 Ratio / Cross Product = Right Vertical",
             "Digits in 2:1 Ratio / Cross Product = Left Vertical",
             "Yaavadunam-Style Observation"
@@ -133,6 +147,16 @@ class CrossProductQuizTest {
         )
 
         assertTrue(CrossProductQuiz.checkAnswer(item, 23))
+    }
+
+    @Test
+    fun checkAnswer_returnsTrue_forUnitsSum15Rule() {
+        val item = CrossProductQuiz.createUnitsSum15TensStep1Item(
+            smallerTens = 5,
+            smallerUnits = 8
+        )
+
+        assertTrue(CrossProductQuiz.checkAnswer(item, 83))
     }
 
     @Test

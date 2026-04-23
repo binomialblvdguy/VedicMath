@@ -24,6 +24,16 @@ object CrossProductQuiz {
         )
     }
 
+    fun createUnitsSum15TensStep1Item(
+        smallerTens: Int,
+        smallerUnits: Int
+    ): CrossProductQuizItem {
+        return com.vedicmath.app.domain.models.CrossProductQuiz.createUnitsSum15TensStep1Item(
+            smallerTens = smallerTens,
+            smallerUnits = smallerUnits
+        )
+    }
+
     fun createYaavadunamStyleItem19x91(): CrossProductQuizItem {
         return com.vedicmath.app.domain.models.CrossProductQuiz.createYaavadunamStyleItem19x91()
     }

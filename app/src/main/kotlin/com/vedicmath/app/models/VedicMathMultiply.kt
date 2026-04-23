@@ -137,6 +137,11 @@ private fun crossProductQuizDrillExplanation(
         tensDiff == 1 && unitSum == 11 ->
             "Cross Product Quiz Drill (units sum 11, tens differ by 1): 11 × ${smaller.tens} + ${smaller.units} = $crossRaw"
 
+        tensDiff == 1 && unitSum == 15 -> {
+            val halfBase = (smaller.tens * 10) / 2
+            "Cross Product Quiz Drill (units sum 15, tens differ by 1): ${smaller.number} + half of ${smaller.tens * 10} = ${smaller.number} + $halfBase = $crossRaw"
+        }
+
         else -> null
     }
 }
