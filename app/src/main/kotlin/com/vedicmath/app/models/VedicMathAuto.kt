@@ -1,17 +1,8 @@
 package com.vedicmath.app.models
 
 internal fun solveAutoMultiplication(a: Int, b: Int): CalculationResult {
-    return when (RatioObservationEngine.observeMultiplication(a, b)) {
-        MultiplyObservation.NEAR_BASE_100 -> solveNearBase100Nikhilam(a, b)
-        MultiplyObservation.SUM9_SAME_TENS -> solveSum9SameTens(a, b)
-        MultiplyObservation.BY_ONE_MORE_SAME_TENS -> solveByOneMoreSameTens(a, b)
-        MultiplyObservation.RECIPROCAL -> solveReciprocalDigits(a, b)
-        MultiplyObservation.SAME_UNITS -> solveSameUnits(a, b)
-        MultiplyObservation.BASE10_GROUPING -> solveBase10Grouping(a, b)
-        MultiplyObservation.VERTICAL_CROSSWISE -> solveVerticalCrosswise(a, b)
-        MultiplyObservation.DIGITWISE_GROUPING -> solveDigitwiseGrouping(a, b, "2-Digit Grouping")
-        MultiplyObservation.POSITIONAL_SPLIT -> solvePositionalSplit(a, b)
-    }
+    val observation = RatioObservationEngine.observeMultiplication(a, b)
+    return MultiplyExecutionEngine.solve(observation, a, b)
 }
 
 internal fun solveAutoSquare(n: Int): CalculationResult {
