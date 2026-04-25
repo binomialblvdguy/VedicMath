@@ -16,6 +16,11 @@ internal enum class MultiplyObservation {
 
 internal object RatioObservationEngine {
     internal fun observeMultiplication(a: Int, b: Int): MultiplyObservation {
+        // Tightened handling: route negative inputs to a safe, generic path
+        if (a < 0 || b < 0) {
+            return MultiplyObservation.POSITIONAL_SPLIT
+        }
+
         return when {
             isNearBase100(a, b) -> MultiplyObservation.NEAR_BASE_100
             isSum9SameTensCandidate(a, b) -> MultiplyObservation.SUM9_SAME_TENS
@@ -31,35 +36,49 @@ internal object RatioObservationEngine {
 }
 
 internal fun isNearBase100(a: Int, b: Int): Boolean {
-    return a < 100 && b < 100 && abs(100 - a) <= 10 && abs(100 - b) <= 10
+    val A = abs(a)
+    val B = abs(b)
+    return A <= 100 && B <= 100 && abs(100 - A) <= 10 && abs(100 - B) <= 10
 }
 
 internal fun isBase10GroupingCandidate(a: Int, b: Int): Boolean {
-    return a in 10..29 && b in 10..29
+    val A = abs(a)
+    val B = abs(b)
+    return A in 10..29 && B in 10..29
 }
 
 internal fun isDigitwiseGroupingCandidate(a: Int, b: Int): Boolean {
-    return (digitCount(a) >= 3 && b in 10..99) || (digitCount(b) >= 3 && a in 10..99)
+    val A = abs(a)
+    val B = abs(b)
+    return (digitCount(A) >= 3 && B in 10..99) || (digitCount(B) >= 3 && A in 10..99)
 }
 
 internal fun isByOneMoreCandidate(a: Int, b: Int): Boolean {
-    return a in 10..99 &&
-            b in 10..99 &&
-            a / 10 == b / 10 &&
-            (a % 10) + (b % 10) >= 10
+    val A = abs(a)
+    val B = abs(b)
+    return A in 10..99 &&
+            B in 10..99 &&
+            A / 10 == B / 10 &&
+            (A % 10) + (B % 10) >= 10
 }
 
 internal fun isSum9SameTensCandidate(a: Int, b: Int): Boolean {
-    return a in 10..99 &&
-            b in 10..99 &&
-            a / 10 == b / 10 &&
-            (a % 10) + (b % 10) == 9
+    val A = abs(a)
+    val B = abs(b)
+    return A in 10..99 &&
+            B in 10..99 &&
+            A / 10 == B / 10 &&
+            (A % 10) + (B % 10) == 9
 }
 
 internal fun isSameUnitsCandidate(a: Int, b: Int): Boolean {
-    return a in 10..99 && b in 10..99 && a % 10 == b % 10
+    val A = abs(a)
+    val B = abs(b)
+    return A in 10..99 && B in 10..99 && A % 10 == B % 10
 }
 
 internal fun isReciprocalCandidate(a: Int, b: Int): Boolean {
-    return a in 10..99 && b in 10..99 && a / 10 == b % 10 && a % 10 == b / 10
+    val A = abs(a)
+    val B = abs(b)
+    return A in 10..99 && B in 10..99 && A / 10 == B % 10 && A % 10 == B / 10
 }

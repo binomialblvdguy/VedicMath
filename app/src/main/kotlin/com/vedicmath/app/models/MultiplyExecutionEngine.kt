@@ -1,6 +1,12 @@
 package com.vedicmath.app.models
 
 internal object MultiplyExecutionEngine {
+    // New minimal safe entrypoint: auto-detect observation from inputs
+    internal fun solve(a: Int, b: Int): CalculationResult {
+        val observation = RatioObservationEngine.observeMultiplication(a, b)
+        return solve(observation, a, b)
+    }
+
     internal fun solve(observation: MultiplyObservation, a: Int, b: Int): CalculationResult {
         return when (observation) {
             MultiplyObservation.NEAR_BASE_100 -> solveNearBase100Nikhilam(a, b)

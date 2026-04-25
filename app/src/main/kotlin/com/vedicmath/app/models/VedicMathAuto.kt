@@ -1,8 +1,8 @@
 package com.vedicmath.app.models
 
 internal fun solveAutoMultiplication(a: Int, b: Int): CalculationResult {
-    val observation = RatioObservationEngine.observeMultiplication(a, b)
-    return MultiplyExecutionEngine.solve(observation, a, b)
+    // Route through engine that auto-detects observation
+    return MultiplyExecutionEngine.solve(a, b)
 }
 
 internal fun solveAutoSquare(n: Int): CalculationResult {
