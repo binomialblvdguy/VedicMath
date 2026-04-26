@@ -117,10 +117,13 @@ internal fun solveAlgebraicCube(n: Int): CalculationResult {
                 result = result.toString(),
                 steps = listOf(
                     "Method: Algebraic Cube",
-                    "a³ = $tens³ = ${tens * tens * tens}",
-                    "$n = $tens + $units, so 3a²b = ${3 * tens * tens * units} and 3ab² = ${3 * tens * units * units}",
-                    "1 | 6 | 12 | b³",
-                    "1 | 6 | 12 | ${units * units * units}\nFinal answer = $result"
+                    "Split $n into $tens and $units",
+                    "Cube the tens part: $tens × $tens × $tens = ${tens * tens * tens}",
+                    "Take three copies of ($tens × $tens × $units) = ${3 * tens * tens * units}",
+                    "Take three copies of ($tens × $units × $units) = ${3 * tens * units * units}",
+                    "Cube the units part: $units × $units × $units = ${units * units * units}",
+                    "Add the four parts together",
+                    "Final answer = $result"
                 )
             )
         } else {
@@ -129,13 +132,12 @@ internal fun solveAlgebraicCube(n: Int): CalculationResult {
                 result = result.toString(),
                 steps = listOf(
                     "Method: Algebraic Cube",
-                    "Split $n into $tens + $units",
-                    "Use the identity (a + b)³ = a³ + 3a²b + 3ab² + b³",
-                    "a³ = $tens³ = ${tens * tens * tens}",
-                    "3a²b = 3 × $tens² × $units = ${3 * tens * tens * units}",
-                    "3ab² = 3 × $tens × $units² = ${3 * tens * units * units}",
-                    "b³ = $units³ = ${units * units * units}",
-                    "Add all parts together to get the cube",
+                    "Split $n into $tens and $units",
+                    "Cube the tens part: $tens × $tens × $tens = ${tens * tens * tens}",
+                    "Take three copies of ($tens × $tens × $units) = ${3 * tens * tens * units}",
+                    "Take three copies of ($tens × $units × $units) = ${3 * tens * units * units}",
+                    "Cube the units part: $units × $units × $units = ${units * units * units}",
+                    "Add all four parts together to get the cube",
                     "Final answer = $result"
                 )
             )
