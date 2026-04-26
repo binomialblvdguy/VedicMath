@@ -17,6 +17,23 @@ class CrossProductQuizSession(
         return CrossProductQuiz.createRandomItem(random)
     }
 
+    fun recordAnswer(item: CrossProductQuizItem, answer: Int): Boolean {
+        val isCorrect = CrossProductQuiz.checkAnswer(item, answer)
+
+        score = if (isCorrect) {
+            score.copy(
+                totalAsked = score.totalAsked + 1,
+                correctAnswers = score.correctAnswers + 1
+            )
+        } else {
+            score.copy(
+                totalAsked = score.totalAsked + 1
+            )
+        }
+
+        return isCorrect
+    }
+
     fun currentItem(): CrossProductQuizItem? = items.getOrNull(index)
 
     fun newSession(size: Int = 5) {
