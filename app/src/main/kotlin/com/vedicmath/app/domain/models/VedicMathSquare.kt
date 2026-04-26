@@ -47,7 +47,9 @@ internal fun solveEnds1Square(n: Int): CalculationResult {
 
 internal fun solveEnds4Square(n: Int): CalculationResult {
     val a = n / 10
-    val prefix = a * (a + 1) * 10 - (2 * a - 1)
+    val frontBase = a * (a + 1) * 100
+    val subtractAmount = (2 * a - 1) * 10
+    val almost = frontBase - subtractAmount
     val result = n * n
 
     return CalculationResult(
@@ -55,12 +57,10 @@ internal fun solveEnds4Square(n: Int): CalculationResult {
         result = result.toString(),
         steps = listOf(
             "Method: Ends 4 Square",
-            "Write $n as 10×$a + 4",
-            "Use the shortcut: ((a×(a+1))×10) - (2a - 1)",
-            "Compute a×(a+1): $a × ${a + 1} = ${a * (a + 1)}",
-            "Prefix = ${(a * (a + 1)) * 10} - ${2 * a - 1} = $prefix",
-            "The final digit for numbers ending in 4 is 6",
-            "Combine the parts: $prefix | 6",
+            "Multiply the tens digit by the next digit and attach two zeros: $a × ${a + 1} → $frontBase",
+            "Subtract ${2 * a - 1} tens: $frontBase - $subtractAmount = $almost",
+            "Replace the last 0 with 6",
+            "So $almost becomes $result",
             "Final answer = $result"
         )
     )
@@ -96,7 +96,9 @@ internal fun solveEnds5Square(n: Int): CalculationResult {
 
 internal fun solveEnds6Square(n: Int): CalculationResult {
     val a = n / 10
-    val prefix = a * (a + 1) * 10 + (2 * (a + 1) + 1)
+    val frontBase = a * (a + 1) * 10
+    val addAmount = 2 * (a + 1) + 1
+    val prefix = frontBase + addAmount
     val result = n * n
 
     return CalculationResult(
@@ -104,11 +106,10 @@ internal fun solveEnds6Square(n: Int): CalculationResult {
         result = result.toString(),
         steps = listOf(
             "Method: Ends 6 Square",
-            "Write $n as 10×$a + 6",
-            "Use the shortcut: ((a×(a+1))×10) + (2(a+1)+1)",
-            "Compute a×(a+1): $a × ${a + 1} = ${a * (a + 1)}",
-            "Prefix = ${(a * (a + 1)) * 10} + ${2 * (a + 1) + 1} = $prefix",
-            "The final digit for numbers ending in 6 is 6",
+            "Multiply the tens digit by the next digit, then by 10: $a × ${a + 1} × 10 = $frontBase",
+            "Now add double the next digit plus 1: (2 × ${a + 1}) + 1 = $addAmount",
+            "That gives the front part: $frontBase + $addAmount = $prefix",
+            "Numbers ending in 6 finish with 6",
             "Combine the parts: $prefix | 6",
             "Final answer = $result"
         )
@@ -117,8 +118,10 @@ internal fun solveEnds6Square(n: Int): CalculationResult {
 
 internal fun solveEnds9Square(n: Int): CalculationResult {
     val a = n / 10
-    val k = a + 1
-    val prefix = (k * k * 10) - (2 * k)
+    val nextTen = (a + 1) * 10
+    val roundedSquare = nextTen * nextTen
+    val subtractAmount = 2 * nextTen
+    val almost = roundedSquare - subtractAmount
     val result = n * n
 
     return CalculationResult(
@@ -126,13 +129,11 @@ internal fun solveEnds9Square(n: Int): CalculationResult {
         result = result.toString(),
         steps = listOf(
             "Method: Ends 9 Square",
-            "Write $n as 10×$a + 9",
-            "Round the tens part up to a + 1 = $k",
-            "Use the shortcut: (k²×10) - 2k",
-            "k²×10 = ${k * k} × 10 = ${k * k * 10}",
-            "Prefix = ${k * k * 10} - ${2 * k} = $prefix",
-            "The final digit for numbers ending in 9 is 1",
-            "Combine the parts: $prefix | 1",
+            "Round $n up to the next ten: $nextTen",
+            "Square that rounded number: $nextTen × $nextTen = $roundedSquare",
+            "Subtract double of $nextTen: $roundedSquare - $subtractAmount = $almost",
+            "Replace the last 0 with 1",
+            "So $almost becomes $result",
             "Final answer = $result"
         )
     )
