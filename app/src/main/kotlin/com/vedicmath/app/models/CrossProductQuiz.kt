@@ -4,11 +4,21 @@ import kotlin.random.Random
 
 object CrossProductQuiz {
 
-    fun createUnitsSum10TensStep1Item(
+    fun createUnitsSumToTensStepItem(
         smallerTens: Int,
         smallerUnits: Int
     ): CrossProductQuizItem {
         return com.vedicmath.app.domain.models.CrossProductQuiz.createUnitsSumToTensStepItem(
+            smallerTens = smallerTens,
+            smallerUnits = smallerUnits
+        )
+    }
+
+    fun createUnitsSum10TensStep1Item(
+        smallerTens: Int,
+        smallerUnits: Int
+    ): CrossProductQuizItem {
+        return createUnitsSumToTensStepItem(
             smallerTens = smallerTens,
             smallerUnits = smallerUnits
         )
