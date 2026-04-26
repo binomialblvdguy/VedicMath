@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import com.vedicmath.app.crossproduct.advanced.AdvancedCrossProductQuizSession
 import com.vedicmath.app.crossproduct.advanced.AdvancedQuizItem
 import com.vedicmath.app.databinding.FragmentCrossProductQuizBinding
-import com.vedicmath.app.domain.models.CrossProductQuizSession
 import com.vedicmath.app.models.CrossProductQuizItem
+import com.vedicmath.app.models.CrossProductQuizSession
 
 class CrossProductQuizFragment : Fragment() {
 
