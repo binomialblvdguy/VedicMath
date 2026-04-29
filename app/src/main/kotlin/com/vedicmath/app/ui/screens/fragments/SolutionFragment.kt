@@ -28,12 +28,9 @@ class SolutionFragment : Fragment() {
         val args = arguments
         val execution = args?.getString(ARG_EXECUTION).orEmpty()
             .ifEmpty { args?.getString(ARG_METHOD_LEGACY).orEmpty() }
-        val observation = args?.getString(ARG_OBSERVATION).orEmpty()
-            .ifEmpty { execution }
         val result = args?.getString(ARG_RESULT).orEmpty()
         val steps = args?.getStringArrayList(ARG_STEPS).orEmpty()
 
-        binding.tvSolutionObservation.text = observation
         binding.tvSolutionMethod.text = execution
         binding.tvSolutionResult.text = result
 

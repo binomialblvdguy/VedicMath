@@ -52,12 +52,22 @@ class CrossProductQuizFragment : Fragment() {
 
         binding.advancedModeSwitch.setOnCheckedChangeListener { _, isChecked ->
             isAdvancedMode = isChecked
+            updateModeLabel()
             startNewQuiz(size = 5)
         }
 
         isAdvancedMode = false
         binding.advancedModeSwitch.isChecked = false
+        updateModeLabel()
         startNewQuiz(size = 5)
+    }
+
+    private fun updateModeLabel() {
+        binding.textModeLabel.text = if (isAdvancedMode) {
+            "Mode: Adv"
+        } else {
+            "Mode: Std"
+        }
     }
 
     private fun startNewQuiz(size: Int) {
@@ -81,16 +91,14 @@ class CrossProductQuizFragment : Fragment() {
             advItem != null -> {
                 binding.tvQuizType.text = advItem.ruleName
                 binding.tvQuizPrompt.text =
-                    "Find only the cross term for ${advItem.question.left} × ${advItem.question.right}"
-                binding.tvQuizExplanationPreview.text =
-                    "Use the rule mentally, then enter only the cross term."
+                    "Find the cross term for ${advItem.question.left} × ${advItem.question.right}"
+                binding.tvQuizExplanationPreview.text = "Enter only the cross term."
             }
 
             stdItem != null -> {
                 binding.tvQuizType.text = stdItem.typeLabel
                 binding.tvQuizPrompt.text = stdItem.prompt
-                binding.tvQuizExplanationPreview.text =
-                    "Use the rule mentally, then enter only the cross term."
+                binding.tvQuizExplanationPreview.text = "Enter only the cross term."
             }
 
             else -> {
@@ -107,7 +115,7 @@ class CrossProductQuizFragment : Fragment() {
     private fun submitAnswer() {
         val userAnswer = binding.etCrossAnswer.text?.toString()?.trim()?.toIntOrNull()
         if (userAnswer == null) {
-            binding.etCrossAnswer.error = "Enter a whole-number cross term"
+            binding.etCrossAnswer.error = "Enter a whole number"
             return
         }
 
@@ -131,7 +139,7 @@ class CrossProductQuizFragment : Fragment() {
             } else {
                 val correctAnswer =
                     currentAdvancedItem?.let { it.question.left * it.question.right }?.toString().orEmpty()
-                "Not quite.\nCorrect answer: $correctAnswer\n$explanation"
+                "Not quite.\nCorrect: $correctAnswer\n$explanation"
             }
         } else {
             val explanation = currentStandardItem?.ruleDescription.orEmpty()
@@ -139,7 +147,7 @@ class CrossProductQuizFragment : Fragment() {
                 "Correct ✅\n$explanation"
             } else {
                 val correctAnswer = currentStandardItem?.expectedCrossTerm?.toString().orEmpty()
-                "Not quite.\nCorrect cross term: $correctAnswer\n$explanation"
+                "Not quite.\nCorrect: $correctAnswer\n$explanation"
             }
         }
 
@@ -170,11 +178,11 @@ class CrossProductQuizFragment : Fragment() {
             val score = advancedSession.score
             val total = 5
             val accuracy = if (total == 0) 0 else (score * 100) / total
-            binding.tvQuizScore.text = "Score: $score/$total   Accuracy: $accuracy%"
+            binding.tvQuizScore.text = "Score: $score/$total   Acc: $accuracy%"
         } else {
             val score = standardSession.currentScore()
             binding.tvQuizScore.text =
-                "Score: ${score.correctAnswers}/${score.totalAsked}   Accuracy: ${score.accuracyPercent}%"
+                "Score: ${score.correctAnswers}/${score.totalAsked}   Acc: ${score.accuracyPercent}%"
         }
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#121212"
-    android:padding="16dp"
+    android:padding="8dp"
     tools:context=".ui.screens.fragments.VedicCalculatorFragment">
 
     <com.google.android.material.button.MaterialButtonToggleGroup
@@ -22,100 +22,140 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnModeRatio"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_weight="1"
             android:backgroundTint="#1E1E1E"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:insetLeft="0dp"
             android:insetRight="0dp"
             android:minWidth="0dp"
             android:text="RATIO / MULT"
             android:textAllCaps="false"
             android:textColor="#FFEB3B"
+            android:textSize="10sp"
             app:strokeColor="#FFEB3B"
-            app:strokeWidth="2dp" />
+            app:strokeWidth="1dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnModeSquare"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_weight="1"
             android:backgroundTint="#1E1E1E"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:insetLeft="0dp"
             android:insetRight="0dp"
             android:minWidth="0dp"
             android:text="SQUARE"
             android:textAllCaps="false"
             android:textColor="#FFEB3B"
+            android:textSize="10sp"
             app:strokeColor="#FFEB3B"
-            app:strokeWidth="2dp" />
+            app:strokeWidth="1dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnModeCube"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_weight="1"
             android:backgroundTint="#1E1E1E"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:insetLeft="0dp"
             android:insetRight="0dp"
             android:minWidth="0dp"
             android:text="CUBE"
             android:textAllCaps="false"
             android:textColor="#FFEB3B"
+            android:textSize="10sp"
             app:strokeColor="#FFEB3B"
-            app:strokeWidth="2dp" />
+            app:strokeWidth="1dp" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <EditText
-        android:id="@+id/etInputOne"
+    <LinearLayout
+        android:id="@+id/inputRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/bg_neon_cyan"
-        android:hint="First Number"
-        android:inputType="number"
-        android:padding="16dp"
-        android:textColor="#FFEB3B"
-        android:textColorHint="#666666"
+        android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toggleGroup" />
+        app:layout_constraintTop_toBottomOf="@id/toggleGroup">
 
-    <EditText
-        android:id="@+id/etInputTwo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/bg_neon_cyan"
-        android:hint="Second Number"
-        android:inputType="number"
-        android:padding="16dp"
-        android:textColor="#FFEB3B"
-        android:textColorHint="#666666"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etInputOne" />
+        <EditText
+            android:id="@+id/etInputOne"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_neon_cyan"
+            android:hint="First"
+            android:inputType="number"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="8dp"
+            android:textColor="#FFEB3B"
+            android:textColorHint="#666666"
+            android:textSize="13sp" />
+
+        <Space
+            android:layout_width="4dp"
+            android:layout_height="1dp" />
+
+        <EditText
+            android:id="@+id/etInputTwo"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_neon_cyan"
+            android:hint="Second"
+            android:inputType="number"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="8dp"
+            android:textColor="#FFEB3B"
+            android:textColorHint="#666666"
+            android:textSize="13sp" />
+
+        <Space
+            android:layout_width="4dp"
+            android:layout_height="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClear"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="56dp"
+            android:layout_height="44dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Clr"
+            android:textAllCaps="false"
+            android:textColor="#FFEB3B"
+            android:textSize="10sp"
+            app:strokeColor="#FFEB3B" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvRatioHint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
         android:text="Mode: Ratio / Multiply • Method: AUTO"
         android:textColor="#BBBBBB"
-        android:textSize="14sp"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etInputTwo" />
+        app:layout_constraintTop_toBottomOf="@id/inputRow" />
 
     <TextView
         android:id="@+id/tvResult"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/bg_neon_cyan"
-        android:padding="16dp"
+        android:padding="10dp"
         android:textColor="#FFEB3B"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -128,10 +168,10 @@
         android:id="@+id/chipGroupExperiments"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:chipSpacingHorizontal="8dp"
-        app:chipSpacingVertical="8dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        app:chipSpacingHorizontal="4dp"
+        app:chipSpacingVertical="4dp"
         app:layout_constraintBottom_toTopOf="@id/helpBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -143,9 +183,9 @@
         android:id="@+id/helpBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/btnCrossQuiz"
+        app:layout_constraintBottom_toTopOf="@id/buttonRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -153,73 +193,107 @@
             android:id="@+id/btnHelpRatio"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
             android:text="HELP RATIO"
-            android:textColor="#FFEB3B" />
+            android:textAllCaps="false"
+            android:textColor="#FFEB3B"
+            android:textSize="8sp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnHelpSquare"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
             android:text="HELP SQUARE"
-            android:textColor="#FFEB3B" />
+            android:textAllCaps="false"
+            android:textColor="#FFEB3B"
+            android:textSize="8sp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnHelpCube"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
             android:text="HELP CUBE"
-            android:textColor="#FFEB3B" />
+            android:textAllCaps="false"
+            android:textColor="#FFEB3B"
+            android:textSize="8sp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnHelpMult"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
             android:text="HELP MULT"
-            android:textColor="#FFEB3B" />
+            android:textAllCaps="false"
+            android:textColor="#FFEB3B"
+            android:textSize="8sp" />
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCrossQuiz"
-        style="?attr/materialButtonOutlinedStyle"
+    <LinearLayout
+        android:id="@+id/buttonRow"
         android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="12dp"
-        android:text="CROSS PRODUCT QUIZ"
-        android:textColor="#FFEB3B"
-        app:layout_constraintBottom_toTopOf="@id/btnSolve"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="#FFEB3B" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSolve"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#FFEB3B"
-        android:text="SOLVE"
-        android:textColor="#121212"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnClear"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clear"
-        android:textColor="#FFEB3B"
-        app:layout_constraintBottom_toTopOf="@id/helpBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:strokeColor="#FFEB3B" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCrossQuiz"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dp"
+            android:text="QUIZ"
+            android:textAllCaps="false"
+            android:textColor="#FFEB3B"
+            android:textSize="9sp"
+            app:strokeColor="#FFEB3B" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSolve"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFEB3B"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dp"
+            android:text="SOLVE"
+            android:textAllCaps="false"
+            android:textColor="#121212"
+            android:textSize="9sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

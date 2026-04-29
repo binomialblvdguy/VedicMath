@@ -3,6 +3,7 @@ package com.vedicmath.app.ui.screens.fragments
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -155,16 +156,28 @@ class VedicCalculatorFragment : Fragment() {
         return Chip(requireContext()).apply {
             text = method.label
             isCheckable = true
+            isChecked = selected
             isCheckedIconVisible = false
-            chipStrokeWidth = 2f
             setEnsureMinTouchTargetSize(false)
-            chipMinHeight = 40f
+
+            chipMinHeight = 30f
+            chipStrokeWidth = 1f
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 9f)
+
+            chipStartPadding = 8f
+            chipEndPadding = 8f
+            textStartPadding = 0f
+            textEndPadding = 0f
+            closeIconStartPadding = 0f
+            closeIconEndPadding = 0f
 
             chipStrokeColor = ColorStateList.valueOf(Color.parseColor("#FFEB3B"))
             chipBackgroundColor = ColorStateList.valueOf(
                 if (selected) Color.parseColor("#FFEB3B") else Color.parseColor("#1E1E1E")
             )
-            setTextColor(if (selected) Color.parseColor("#121212") else Color.parseColor("#FFEB3B"))
+            setTextColor(
+                if (selected) Color.parseColor("#121212") else Color.parseColor("#FFEB3B")
+            )
 
             setOnClickListener {
                 selectedMethod = method
@@ -673,7 +686,13 @@ class VedicCalculatorFragment : Fragment() {
     private fun updateModeUi() {
         val showSecondInput = currentMode == CalcMode.MULTIPLY
         binding.etInputTwo.visibility = if (showSecondInput) View.VISIBLE else View.GONE
-        binding.etInputOne.hint = if (showSecondInput) "First Number" else "Number"
+        binding.etInputOne.hint = if (showSecondInput) "First" else "Number"
+        binding.etInputTwo.hint = "Second"
+
+        if (!showSecondInput) {
+            binding.etInputTwo.text?.clear()
+            binding.etInputTwo.error = null
+        }
     }
 
     private fun buildObservationText(executionMethodName: String): String {
