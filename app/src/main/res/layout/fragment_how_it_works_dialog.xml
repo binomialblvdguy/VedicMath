@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_how_it_works"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How It Works"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="8dp" />
+
+            <!-- Sections as in your content -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="What this app is"
+                android:textStyle="bold"
+                android:paddingTop="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This tutoring app guides you through Vedic math shortcuts with interactive shortcuts, guided steps, and practice problems. Think of it as a learning coach rather than a calculator."
+                android:paddingBottom="8dp" />
+
+            <!-- The rest of your existing sections (Top modes, Shortcuts, AUTO vs STANDARD, etc.)
+                 can stay as-is. -->
+            <!-- ... keep your current content blocks ... -->
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

@@ -48,4 +48,12 @@
     <string name="error_select_method">Please select a method first.</string>
     <string name="error_select_multiplier">Please select a multiplier.</string>
     <string name="error_2x2_only">This method is limited to 2x2 digit inputs.</string>
+
+    <!-- How It Works - long text moved to strings.xml -->
+    <string name="how_it_works_title">How It Works</string>
+    <string name="how_it_works_auto_vs_standard_title">AUTO vs STANDARD</string>
+    <string name="how_it_works_auto_vs_standard_text">AUTO: automatically selects the most efficient shortcut when possible. STANDARD: shows the full vertical &amp; crosswise method for learning the mechanics.</string>
+    <string name="how_it_works_bottom_text">QUIZ: practice shortcuts. HELP: quick explanations per mode. SOLVE: see the full solution with steps. Use SOLVE to review the method afterward.</string>
+    <string name="how_it_works_getting_started_text">1) Pick a top mode. 2) Choose a shortcut (or AUTO). 3) Enter inputs and tap SOLVE to see the steps. 4) Practice with QUIZ to reinforce learning.</string>
+    <string name="how_it_works_close">Close</string>
 </resources>

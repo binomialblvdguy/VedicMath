@@ -6,12 +6,14 @@
     android:layout_height="match_parent"
     android:background="#121212"
     android:padding="8dp"
+    android:fitsSystemWindows="true"
     tools:context=".ui.screens.fragments.VedicCalculatorFragment">
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggleGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         app:checkedButton="@+id/btnModeRatio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +80,9 @@
         android:id="@+id/inputRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -275,6 +279,23 @@
             android:insetBottom="0dp"
             android:minHeight="0dp"
             android:text="QUIZ"
+            android:textAllCaps="false"
+            android:textColor="#FFEB3B"
+            android:textSize="9sp"
+            app:strokeColor="#FFEB3B" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnHowItWorks"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dp"
+            android:text="HOW IT WORKS"
             android:textAllCaps="false"
             android:textColor="#FFEB3B"
             android:textSize="9sp"
