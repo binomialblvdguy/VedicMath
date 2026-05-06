@@ -26,10 +26,10 @@ internal fun solveVerticalCrosswise(a: Int, b: Int): CalculationResult {
     val result = a * b
 
     return CalculationResult(
-        methodName = "Vertical and Crosswise",
+        methodName = "STANDARD (Vertical & Crosswise)",
         result = result.toString(),
         steps = listOf(
-            "Method: Vertical and Crosswise",
+            "Method: STANDARD (Vertical & Crosswise)",
             "$a = $aTens$aUnits",
             "$b = $bTens$bUnits",
             "Right: $aUnits × $bUnits = $rightRaw, write $rightDigit carry $carryFromRight",

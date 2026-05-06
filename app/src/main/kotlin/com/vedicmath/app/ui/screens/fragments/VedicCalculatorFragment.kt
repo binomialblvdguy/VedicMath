@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.vedicmath.app.R
 import com.vedicmath.app.databinding.FragmentMainScreenBinding
 import com.vedicmath.app.models.MethodChoice
@@ -18,7 +18,9 @@ class VedicCalculatorFragment : Fragment() {
     private var _binding: FragmentMainScreenBinding? = null
     private val binding get() = _binding!!
 
-    private enum class CalcMode { MULTIPLY, SQUARE, CUBE }
+    private enum class CalcMode {
+        MULTIPLY, SQUARE, CUBE
+    }
 
     private var currentMode = CalcMode.MULTIPLY
     private var selectedMethod = MethodChoice.AUTO
@@ -40,8 +42,6 @@ class VedicCalculatorFragment : Fragment() {
         setupQuizButton()
         refreshMethodChips()
         updateModeUi()
-
-        // Onboarding as a screen or dialog (choose one approach)
         setupHowItWorksButton()
 
         binding.btnSolve.setOnClickListener {
@@ -52,34 +52,52 @@ class VedicCalculatorFragment : Fragment() {
 
             when {
                 n1 == null -> {
-                    binding.etInputOne?.error = "Enter a whole number from 0 to 9999"
+                    binding.etInputOne.error = "Enter a whole number from 0 to 9999"
                     Toast.makeText(requireContext(), "First number is invalid.", Toast.LENGTH_SHORT).show()
                 }
+
                 n1 < 0 -> {
-                    binding.etInputOne?.error = "Must be 0 or greater"
+                    binding.etInputOne.error = "Must be 0 or greater"
                     Toast.makeText(requireContext(), "First number must be 0 or greater.", Toast.LENGTH_SHORT).show()
                 }
+
                 n1 > 9999 -> {
-                    binding.etInputOne?.error = "Must be 9999 or less"
+                    binding.etInputOne.error = "Must be 9999 or less"
                     Toast.makeText(requireContext(), "First number must be 9999 or less.", Toast.LENGTH_SHORT).show()
                 }
+
                 currentMode == CalcMode.MULTIPLY && n2 == null -> {
-                    binding.etInputTwo?.error = "Enter a whole number from 0 to 9999"
+                    binding.etInputTwo.error = "Enter a whole number from 0 to 9999"
                     Toast.makeText(requireContext(), "Second number is invalid.", Toast.LENGTH_SHORT).show()
                 }
+
                 currentMode == CalcMode.MULTIPLY && n2 != null && n2 < 0 -> {
-                    binding.etInputTwo?.error = "Must be 0 or greater"
+                    binding.etInputTwo.error = "Must be 0 or greater"
                     Toast.makeText(requireContext(), "Second number must be 0 or greater.", Toast.LENGTH_SHORT).show()
                 }
+
                 currentMode == CalcMode.MULTIPLY && n2 != null && n2 > 9999 -> {
-                    binding.etInputTwo?.error = "Must be 9999 or less"
+                    binding.etInputTwo.error = "Must be 9999 or less"
                     Toast.makeText(requireContext(), "Second number must be 9999 or less.", Toast.LENGTH_SHORT).show()
                 }
+
                 else -> {
                     val calc = when (currentMode) {
-                        CalcMode.MULTIPLY -> com.vedicmath.app.models.VedicMath.solveMultiplication(n1, n2!!, selectedMethod)
-                        CalcMode.SQUARE -> com.vedicmath.app.models.VedicMath.solveSquare(n1, selectedMethod)
-                        CalcMode.CUBE -> com.vedicmath.app.models.VedicMath.solveCube(n1, selectedMethod)
+                        CalcMode.MULTIPLY -> com.vedicmath.app.models.VedicMath.solveMultiplication(
+                            n1,
+                            n2!!,
+                            selectedMethod
+                        )
+
+                        CalcMode.SQUARE -> com.vedicmath.app.models.VedicMath.solveSquare(
+                            n1,
+                            selectedMethod
+                        )
+
+                        CalcMode.CUBE -> com.vedicmath.app.models.VedicMath.solveCube(
+                            n1,
+                            selectedMethod
+                        )
                     }
 
                     val observation = buildObservationText(calc.methodName)
@@ -110,32 +128,32 @@ class VedicCalculatorFragment : Fragment() {
         }
     }
 
-    // Input helpers
     private fun getN1(): Int? {
-        val s = binding.etInputOne?.text?.toString()
-        return s?.toIntOrNull()
+        return binding.etInputOne.text?.toString()?.toIntOrNull()
     }
 
     private fun getN2(): Int? {
-        val s = binding.etInputTwo?.text?.toString()
-        return s?.toIntOrNull()
+        return binding.etInputTwo.text?.toString()?.toIntOrNull()
     }
 
     private fun clearInputErrors() {
-        binding.etInputOne?.error = null
-        binding.etInputTwo?.error = null
+        binding.etInputOne.error = null
+        binding.etInputTwo.error = null
     }
 
-    // UI wiring
     private fun setupModeToggle() {
-        binding.toggleGroup.addOnButtonCheckedListener { _: com.google.android.material.button.MaterialButtonToggleGroup,
-                                                         checkedId: Int, isChecked: Boolean ->
+        binding.toggleGroup.addOnButtonCheckedListener { _: MaterialButtonToggleGroup, checkedId: Int, isChecked: Boolean ->
             if (!isChecked) return@addOnButtonCheckedListener
 
             currentMode = when (checkedId) {
                 R.id.btnModeSquare -> CalcMode.SQUARE
                 R.id.btnModeCube -> CalcMode.CUBE
                 else -> CalcMode.MULTIPLY
+            }
+
+            if (currentMode != CalcMode.MULTIPLY) {
+                binding.etInputTwo.text?.clear()
+                binding.etInputTwo.error = null
             }
 
             selectedMethod = MethodChoice.AUTO
@@ -145,12 +163,33 @@ class VedicCalculatorFragment : Fragment() {
     }
 
     private fun updateModeUi() {
-        val modeLabel = when (currentMode) {
-            CalcMode.MULTIPLY -> "RATIO / MULT"
-            CalcMode.SQUARE -> "SQUARE"
-            CalcMode.CUBE -> "CUBE"
+        when (currentMode) {
+            CalcMode.MULTIPLY -> {
+                binding.tvRatioHint.text = "Mode: Ratio / Multiply • Method: ${selectedMethod.label}"
+                binding.etInputOne.hint = "First"
+                binding.etInputTwo.visibility = View.VISIBLE
+                binding.etInputTwo.isEnabled = true
+                binding.etInputTwo.hint = "Second"
+            }
+
+            CalcMode.SQUARE -> {
+                binding.tvRatioHint.text = "Mode: Square • Method: ${selectedMethod.label} • Enter one number"
+                binding.etInputOne.hint = "Number"
+                binding.etInputTwo.text?.clear()
+                binding.etInputTwo.error = null
+                binding.etInputTwo.isEnabled = false
+                binding.etInputTwo.visibility = View.GONE
+            }
+
+            CalcMode.CUBE -> {
+                binding.tvRatioHint.text = "Mode: Cube • Method: ${selectedMethod.label} • Enter one number"
+                binding.etInputOne.hint = "Number"
+                binding.etInputTwo.text?.clear()
+                binding.etInputTwo.error = null
+                binding.etInputTwo.isEnabled = false
+                binding.etInputTwo.visibility = View.GONE
+            }
         }
-        binding.tvRatioHint.text = "Mode: $modeLabel • Method: ${selectedMethod.label}"
     }
 
     private fun refreshMethodChips() {
@@ -189,12 +228,15 @@ class VedicCalculatorFragment : Fragment() {
             closeIconEndPadding = 0f
 
             chipStrokeColor = androidx.appcompat.content.res.AppCompatResources.getColorStateList(
-                requireContext(), android.R.color.holo_orange_light
+                requireContext(),
+                android.R.color.holo_orange_light
             )
+
             chipBackgroundColor = android.content.res.ColorStateList.valueOf(
                 if (selected) android.graphics.Color.parseColor("#FFEB3B")
                 else android.graphics.Color.parseColor("#1E1E1E")
             )
+
             setTextColor(
                 if (selected) android.graphics.Color.parseColor("#121212")
                 else android.graphics.Color.parseColor("#FFEB3B")
@@ -222,39 +264,73 @@ class VedicCalculatorFragment : Fragment() {
                 MethodChoice.MULT_NEAR_BASE,
                 MethodChoice.MULT_SERIES
             )
-            CalcMode.SQUARE -> listOf(MethodChoice.AUTO)
-            CalcMode.CUBE -> listOf(MethodChoice.AUTO)
+
+            CalcMode.SQUARE -> listOf(
+                MethodChoice.AUTO,
+                MethodChoice.SQUARE_DUPLEX,
+                MethodChoice.SQUARE_ENDS_14,
+                MethodChoice.SQUARE_ENDS_5,
+                MethodChoice.SQUARE_ENDS_69
+            )
+
+            CalcMode.CUBE -> listOf(
+                MethodChoice.AUTO,
+                MethodChoice.CUBE_1248,
+                MethodChoice.CUBE_RATIO,
+                MethodChoice.CUBE_ALGEBRAIC
+            )
         }
     }
 
-    // HOW IT WORKS onboarding -> switch to screen-based flow
     private fun setupHowItWorksButton() {
-        binding.btnHowItWorks?.setOnClickListener {
-            showHowItWorksScreen()
+        binding.btnHowItWorks.setOnClickListener {
+            showHowItWorksScreen(HowItWorksScreenFragment.SECTION_GENERAL)
         }
     }
 
-    private fun showHowItWorksScreen() {
-        HowItWorksScreenFragment().let { (activity as? MainActivity)?.replaceFragment(it) }
+    private fun showHowItWorksScreen(section: String) {
+        (activity as? MainActivity)?.replaceFragment(
+            HowItWorksScreenFragment.newInstance(section)
+        )
     }
 
-    // Simple helper for observed text
     private fun buildObservationText(methodName: String): String {
-        return "Observation: ${methodName}"
+        return "Observation: $methodName"
     }
 
-    // Help/Quiz setup (keep as-is wiring elsewhere)
     private fun setupHelpButtons() {
-        binding.btnHelpRatio?.setOnClickListener { showHowItWorksScreen() }
-        binding.btnHelpSquare?.setOnClickListener { showHowItWorksScreen() }
-        binding.btnHelpCube?.setOnClickListener { showHowItWorksScreen() }
-        binding.btnHelpMult?.setOnClickListener { showHowItWorksScreen() }
+        binding.btnHelpRatio.setOnClickListener {
+            showHowItWorksScreen(HowItWorksScreenFragment.SECTION_MULTIPLY)
+        }
+
+        binding.btnHelpSquare.setOnClickListener {
+            showHowItWorksScreen(HowItWorksScreenFragment.SECTION_SQUARE)
+        }
+
+        binding.btnHelpCube.setOnClickListener {
+            showHowItWorksScreen(HowItWorksScreenFragment.SECTION_CUBE)
+        }
+
+        binding.btnHelpMult.setOnClickListener {
+            showHowItWorksScreen(HowItWorksScreenFragment.SECTION_MULTIPLY)
+        }
     }
 
     private fun setupQuizButton() {
-        binding.btnCrossQuiz?.setOnClickListener {
-            val quizFragment = CrossProductQuizFragment()
-            (activity as? MainActivity)?.replaceFragment(quizFragment)
+        binding.btnCrossQuiz.setOnClickListener {
+            when (currentMode) {
+                CalcMode.MULTIPLY -> {
+                    (activity as? MainActivity)?.replaceFragment(CrossProductQuizFragment())
+                }
+
+                CalcMode.SQUARE, CalcMode.CUBE -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Quiz is currently available in Multiply mode.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 

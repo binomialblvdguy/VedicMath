@@ -15,7 +15,7 @@ internal fun solveByOneMoreSameTens(a: Int, b: Int): CalculationResult {
 
         val steps = if (excess == 0) {
             listOf(
-                "Method: By 1 More",
+                "Method: 1 MORE (By 1 More)",
                 "$a and $b share the same tens digit: $t, and the units digits add to $sumUnits",
                 "Since the units total is 10, the extra part is 0 and the left block is $t × ${t + 1} = $left",
                 "Right block = $u × $v = $right",
@@ -23,7 +23,7 @@ internal fun solveByOneMoreSameTens(a: Int, b: Int): CalculationResult {
             )
         } else {
             listOf(
-                "Method: By 1 More",
+                "Method: 1 MORE (By 1 More)",
                 "$a and $b share the same tens digit: $t",
                 "Add the units digits: $u + $v = $sumUnits",
                 "Since the units total is above 10, the extra part is $sumUnits - 10 = $excess",
@@ -36,13 +36,13 @@ internal fun solveByOneMoreSameTens(a: Int, b: Int): CalculationResult {
         }
 
         CalculationResult(
-            methodName = "By 1 More",
+            methodName = "1 MORE (By 1 More)",
             result = result.toString(),
             steps = steps
         )
     } else {
         overrideResult(
-            name = "By 1 More",
+            name = "1 MORE (By 1 More)",
             base = VedicMath.solveMultiplication(a, b),
             note = "This works when the tens digits match and the units total 10 or more."
         )
@@ -61,10 +61,10 @@ internal fun solveSum9SameTens(a: Int, b: Int): CalculationResult {
         val result = a * b
 
         CalculationResult(
-            methodName = "Sum 9 Same Tens",
+            methodName = "SUM 9 / SAME TENS",
             result = result.toString(),
             steps = listOf(
-                "Method: Sum 9 Same Tens",
+                "Method: SUM 9 / SAME TENS",
                 "$a and $b share the same tens digit: $t",
                 "Add the units digits: $u + $v = 9",
                 "Start with the by-1-more head: $t × ${t + 1} × 10 = $baseHead",
@@ -76,7 +76,7 @@ internal fun solveSum9SameTens(a: Int, b: Int): CalculationResult {
         )
     } else {
         overrideResult(
-            name = "Sum 9 Same Tens",
+            name = "SUM 9 / SAME TENS",
             base = VedicMath.solveMultiplication(a, b),
             note = "This works when the tens digits match and the units total exactly 9."
         )
@@ -101,10 +101,11 @@ internal fun solveSameUnits(a: Int, b: Int): CalculationResult {
             val parityWord = if (tensSum % 2 == 0) "even" else "odd"
 
             CalculationResult(
-                methodName = "Same Units",
+                methodName = "SAME UNITS",
                 result = result.toString(),
                 steps = listOf(
-                    "Same Units / Both end in 5",
+                    "Method: SAME UNITS",
+                    "Both numbers end in 5",
                     "Prefix = $t1 × $t2 = $left",
                     "Middle rule for ...5 × ...5:\n5 × ($t1 + $t2) = 5 × $tensSum = $middle, so the ending becomes 25 or 75",
                     "Here the middle block is $middle",
@@ -121,10 +122,10 @@ internal fun solveSameUnits(a: Int, b: Int): CalculationResult {
             }
 
             CalculationResult(
-                methodName = "Same Units",
+                methodName = "SAME UNITS",
                 result = result.toString(),
                 steps = listOf(
-                    "Method: Same Units",
+                    "Method: SAME UNITS",
                     "$a and $b both end in $u",
                     "Left block = $t1 × $t2 = $left",
                     "Middle block = $u × (${t1 + t2}) = $middle",
@@ -137,7 +138,7 @@ internal fun solveSameUnits(a: Int, b: Int): CalculationResult {
         }
     } else {
         overrideResult(
-            name = "Same Units",
+            name = "SAME UNITS",
             base = VedicMath.solveMultiplication(a, b),
             note = "This works when both numbers end in the same units digit."
         )
@@ -155,10 +156,10 @@ internal fun solveReciprocalDigits(a: Int, b: Int): CalculationResult {
         val result = a * b
 
         CalculationResult(
-            methodName = "Reciprocals",
+            methodName = "RECIPROCALS",
             result = result.toString(),
             steps = listOf(
-                "Method: Reciprocals",
+                "Method: RECIPROCALS",
                 "$a and $b are reverse-digit pairs",
                 "Left block = $x × $y = $left",
                 "Middle block = $x² + $y² = ${x * x} + ${y * y} = $middle",
@@ -169,7 +170,7 @@ internal fun solveReciprocalDigits(a: Int, b: Int): CalculationResult {
         )
     } else {
         overrideResult(
-            name = "Reciprocals",
+            name = "RECIPROCALS",
             base = VedicMath.solveMultiplication(a, b),
             note = "This works for reverse-digit pairs such as 24 × 42."
         )
